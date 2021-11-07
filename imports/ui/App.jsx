@@ -70,7 +70,7 @@ export const App = () => {
       favs end
       <div>
         {advises?.map((advise, i) => {
-          return <Advise advise={advise} key={i} />;
+          return <Advise advise={advise} id={advise._id} key={i} />;
         })}
       </div>
       <FetchSavedAdvises />

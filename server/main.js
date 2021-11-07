@@ -39,6 +39,16 @@ Meteor.methods({
     check(_id, String);
     return savedAdvisesCollection.remove({ _id });
   },
+  saveAdvise: (advise) => {
+    check(advise, Object);
+    // or i can rescieve all the advise properties from client (_id exluded)
+    delete advise._id;
+    const adviseToSave = advise;
+    adviseToSave.note = "note about this advise";
+    console.log(adviseToSave);
+    return savedAdvisesCollection.insert(adviseToSave);
+    // then assemble it here and insert it to savedAdvisesCollection
+  },
 });
 
 Meteor.startup(() => {});
