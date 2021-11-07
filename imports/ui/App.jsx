@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Meteor } from "meteor/meteor";
 import { useTracker } from "meteor/react-meteor-data";
 import advisesCollection from "../../database/collections/advisesCollection";
 import Advise from "./Advise";
 import InsertAdvise from "./insertAdvise";
 import Favorites from "./favorites";
+import FetchSavedAdvises from "./fetchSavedAdvises";
+import { advisesContext } from "../context/context";
 
 /**
    * list all the fetched advises on local storage for user and when we want 
@@ -19,8 +21,6 @@ import Favorites from "./favorites";
     console.log('no match');
   }
 */
-
-
 
 export const App = () => {
   const [advises, setAdvises] = useState([
@@ -50,12 +50,15 @@ export const App = () => {
       date: new Date(),
     },
   ]);
+  const { useToggle } = useContext(advisesContext);
+
   useEffect(() => {
     Meteor.call("fetchAllAdvises", (err, res) => {
       if (err) throw new Error(err);
       setAdvises(res);
     });
-    
+    const toggle = useToggle();
+    console.log(toggle);
   }, []);
 
   return (
@@ -70,6 +73,7 @@ export const App = () => {
           return <Advise advise={advise} key={i} />;
         })}
       </div>
+      <FetchSavedAdvises />
     </>
   );
 };
