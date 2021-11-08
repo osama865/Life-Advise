@@ -38,7 +38,7 @@ export default function SavedAdvises({ advise, id }) {
       />
       <button onClick={handleNoteEdit}>Edit</button>
       <div>{editedNote}</div>
-      <button onClick={deleteNote}>Delete Note</button>
+      <button onClick={deleteNote}>Remove Advise</button>
     </>
   );
 }

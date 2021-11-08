@@ -20,7 +20,6 @@ Meteor.methods({
     savedAdvises.map((advise) => {
       savedAdvisesCollection.insert(advise, (err, res) => {
         if (err) throw new Error(err);
-        console.log(res);
       });
     });
   },
@@ -41,13 +40,19 @@ Meteor.methods({
   },
   saveAdvise: (advise) => {
     check(advise, Object);
-    // or i can rescieve all the advise properties from client (_id exluded)
-    delete advise._id;
+    // or i can rescieve all the advise properties from client (_id , saved exluded)
+    // clone it
     const adviseToSave = advise;
+    delete adviseToSave._id;
+    delete adviseToSave.saved;
+    // add note property
     adviseToSave.note = "note about this advise";
-    console.log(adviseToSave);
-    return savedAdvisesCollection.insert(adviseToSave);
     // then assemble it here and insert it to savedAdvisesCollection
+    return savedAdvisesCollection.insert(adviseToSave);
+  },
+  updateSave: (_id) => {
+    check(_id, String);
+    advisesCollection.update({ _id }, { $set: { saved: true } });
   },
 });
 

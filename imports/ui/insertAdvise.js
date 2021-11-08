@@ -11,6 +11,7 @@ export default function InsertAdvise() {
         Meteor.call('insertAdvise',{
             text : advise.toString(),
             source : source.toString(),
+            saved : false,
             date: new Date(),
         })
 

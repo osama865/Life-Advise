@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Meteor } from "meteor/meteor";
 import { useTracker } from "meteor/react-meteor-data";
-import advisesCollection from "../../database/collections/advisesCollection";
 import Advise from "./Advise";
 import InsertAdvise from "./insertAdvise";
 import Favorites from "./favorites";
@@ -20,6 +19,38 @@ import { advisesContext } from "../context/context";
   } else {
     console.log('no match');
   }
+
+  const { tasks, pendingTasksCount, isLoading } = useTracker(() => {
+    const noData = { tasks: [], pendingTasksCount: 0 };
+    if (!Meteor.user) {
+      return noData;
+    }
+
+    const handler = Meteor.subscribe("tasks");
+
+    if (!handler.ready) {
+      return { ...noData, isLoading: true };
+    }
+
+    const tasks = taskCollection
+      .find(hideCopmleted ? hideCompletedFilter : userFilter, {
+        sort: { createdAt: -1 },
+      })
+      .fetch();
+    const pendingTasksCount = useTracker(() =>
+      taskCollection.find(hideCompletedFilter).count()
+    );
+
+    return { tasks, pendingTasksCount };
+  });
+  const {trackedAdvises} = useTracker(()=>{
+    let trackedAdvises ;
+    Meteor.call("fetchAllAdvises", (err, res) => {
+      if (err) throw new Error(err);
+      trackedAdvises = res
+    });
+    return trackedAdvises
+  },[])
 */
 
 export const App = () => {
@@ -50,15 +81,12 @@ export const App = () => {
       date: new Date(),
     },
   ]);
-  const { useToggle } = useContext(advisesContext);
-
+  
   useEffect(() => {
     Meteor.call("fetchAllAdvises", (err, res) => {
       if (err) throw new Error(err);
       setAdvises(res);
     });
-    const toggle = useToggle();
-    console.log(toggle);
   }, []);
 
   return (
