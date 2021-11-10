@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Meteor } from "meteor/meteor";
+import AddCustomNote from "./addCustomNote";
 
 export default function Advise({ advise, id }) {
   const saveAdvise = () => {
@@ -9,12 +10,21 @@ export default function Advise({ advise, id }) {
         if (err) throw new Error(err);
         console.log(res);
       });
-      Meteor.call("updateSave",id, (err) => {
+      Meteor.call("updateSave", id, (err) => {
         if (err) throw new Error(err);
       });
     } else {
       return;
     }
+  };
+
+  const handleNoteEdit = (e) => {
+    // update the note
+    console.log("update your note with the new note ", editedNote);
+    Meteor.call("updateNote", editedNote, id, (err, res) => {
+      if (err) throw new Error(err);
+      console.log(res);
+    });
   };
   const savedOrNot = advise.saved === true ? "allready Saved" : "Save";
 
@@ -24,6 +34,9 @@ export default function Advise({ advise, id }) {
       <h2>{advise.text}</h2>
       <h4>{advise.source}</h4>
       <h5>{advise.date.toUTCString()}</h5>
+      <div>
+        <textarea defaultValue="Save it with note?" />
+      </div>
       <button onClick={saveAdvise}>{savedOrNot}</button>
       <h1>---------------------------</h1>
     </>

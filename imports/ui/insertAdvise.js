@@ -13,7 +13,10 @@ export default function InsertAdvise() {
             source : source.toString(),
             saved : false,
             date: new Date(),
-        })
+        },(err, id) => {
+            if (err) throw new Error(err);
+            console.log(id);
+          })
 
         // clear states
         setAdvise("")

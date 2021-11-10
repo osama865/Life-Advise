@@ -37,7 +37,7 @@ export default function SavedAdvises({ advise, id }) {
         onChange={(e) => setEditedNote(e.target.value)}
       />
       <button onClick={handleNoteEdit}>Edit</button>
-      <div>{editedNote}</div>
+      <div>{''}</div>
       <button onClick={deleteNote}>Remove Advise</button>
     </>
   );

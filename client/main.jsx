@@ -5,5 +5,5 @@ import { App } from '/imports/ui/App';
 import { Context } from '../imports/context/context';
 
 Meteor.startup(() => {
-  render(<Context children={<App/>}/>, document.getElementById('react-target'));
+  render(<App/>, document.getElementById('react-target'));
 });
