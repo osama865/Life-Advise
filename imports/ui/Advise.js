@@ -35,7 +35,7 @@ export default function Advise({ advise, id }) {
       <h4>{advise.source}</h4>
       <h5>{advise.date.toUTCString()}</h5>
       <div>
-        <textarea defaultValue="Save it with note?" />
+        <textarea placeholder="Save it with note?" />
       </div>
       <button onClick={saveAdvise}>{savedOrNot}</button>
       <h1>---------------------------</h1>

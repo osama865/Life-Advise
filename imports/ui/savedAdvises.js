@@ -1,6 +1,19 @@
 import React, { useRef, useState } from "react";
 import { Meteor } from "meteor/meteor";
 
+// import {MongoClient} from "mongodb"
+
+/*
+  |--------------------------------------------------
+  | the local db for user
+  | add advises and compare them later with new fetched advises
+  | will create another collection for user's saved advised for saved page
+  | remove a advises/quotes from the list
+  | const clientDB = new MongoClient.connect('advises')
+  | meteor npm install --save mongodb
+  |--------------------------------------------------
+*/
+
 export default function SavedAdvises({ advise, id }) {
   const [editedNote, setEditedNote] = useState("");
   const handleNoteEdit = (e) => {
@@ -33,7 +46,7 @@ export default function SavedAdvises({ advise, id }) {
       <button onClick={clearNote}>clear note</button>
       <textarea
         ref={note}
-        defaultValue={advise.note}
+        value={advise.note}
         onChange={(e) => setEditedNote(e.target.value)}
       />
       <button onClick={handleNoteEdit}>Edit</button>
