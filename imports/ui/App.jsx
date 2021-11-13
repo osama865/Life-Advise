@@ -6,6 +6,7 @@ import InsertAdvise from "./insertAdvise";
 import Favorites from "./favorites";
 import FetchSavedAdvises from "./fetchSavedAdvises";
 import { advisesContext } from "../context/context";
+import FetchOneAdvise from "./fetchOneAdvise";
 
 /**
    * list all the fetched advises on local storage for user and when we want 
@@ -93,7 +94,7 @@ export const App = () => {
     });
   }, []);
 
-  /**
+  /**<FetchOneAdvise/>
    * here some advises
       <InsertAdvise />
       favs start
@@ -105,7 +106,14 @@ export const App = () => {
    */
   return (
     <>
-      <FetchSavedAdvises />
+      here some advises
+      <InsertAdvise />
+      favs start
+      <div>
+        {advises?.map((advise, i) => {
+          return <Advise advise={advise} id={advise._id} key={i} />;
+        })}
+      </div> 
     </>
   );
 };
