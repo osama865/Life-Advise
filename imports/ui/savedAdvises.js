@@ -18,10 +18,8 @@ export default function SavedAdvises({ advise, id }) {
   const [editedNote, setEditedNote] = useState("");
   const handleNoteEdit = (e) => {
     // update the note
-    console.log("update your note with the new note ", editedNote);
     Meteor.call("updateNote", editedNote, id, (err, res) => {
       if (err) throw new Error(err);
-      console.log(res);
     });
   };
   const note = useRef();
@@ -31,10 +29,8 @@ export default function SavedAdvises({ advise, id }) {
   };
 
   const deleteNote = () => {
-    console.log("delete advise with id : ", id);
     Meteor.call("deleteAdvise", id, (err, res) => {
       if (err) throw new Error(err);
-      console.log(res);
     });
   };
   clearNote;

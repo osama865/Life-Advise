@@ -22,7 +22,6 @@ export default function FetchSavedAdvises() {
       if (err) throw new Error(err);
       setAdvises([]);
       setAdvises(res);
-      console.log(res);
     });
   }, []);
   return (

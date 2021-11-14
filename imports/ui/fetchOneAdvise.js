@@ -14,7 +14,6 @@ export default function FetchOneAdvise() {
       if (err) throw new Error('occured when fetching advise , check the skip aurg',err);
       if (res === undefined) {
         seteEnd(true);
-        console.log("we dont have another advises");
       } else {
         setAdvise(res);
         setSkip((s) => skip + 1);

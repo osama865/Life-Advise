@@ -5,18 +5,43 @@ import advisesCollection, {
 } from "../database/collections/advisesCollection";
 
 Meteor.methods({
+  // insert an advise
   insertAdvise: (advise) => {
     check(advise, Object);
     return advisesCollection.insert(advise);
   },
+  // fetch an advise daily (not yet)
   fetchAdviseDaily: () => {},
+  // fetch all advises from advises collection
   fetchAllAdvises: () => {
     return advisesCollection.find({}).fetch();
   },
-  fetchOneAdvise: (skip) => {
-    check(skip , Number)
-    return advisesCollection.findOne({}, {skip});
+  // return the count of advises
+  countAdvises: () => {
+    return advisesCollection.find({}).count();
   },
+  // fetch advises one by one
+  // must change the name to fetch by skip or anything
+  fetchOneAdvise: (skip) => {
+    check(skip, Number);
+    return advisesCollection.findOne({}, { skip });
+  },
+  // return the FirstAdvise
+
+  fetchFirstAdvise: () => {
+    return advisesCollection.findOne({}, {sort:{date : 1}});
+  },
+  // return the LastAdvise
+
+  fetchLastAdvise: () => {
+    return advisesCollection.findOne({}, {sort:{date : 1}});
+  },
+  // fetch an advise with id
+  testFetchOneAdvise: (_id) => {
+    check(_id, String);
+    return advisesCollection.findOne({ _id });
+  },
+  // clean it later
   insertSavedAdvises: (savedAdvises) => {
     savedAdvises.map((advise) => {
       savedAdvisesCollection.insert(advise, (err, res) => {
@@ -24,9 +49,12 @@ Meteor.methods({
       });
     });
   },
+  // fetch all advises from saved collection
+
   fetchSavedAdvises: () => {
     return savedAdvisesCollection.find({}).fetch();
   },
+  // edit note
   updateNote: (updatedNote, _id) => {
     check(updatedNote, String);
     check(_id, String);
@@ -35,10 +63,12 @@ Meteor.methods({
       { $set: { note: updatedNote } }
     );
   },
+  // remove advise
   deleteAdvise: (_id) => {
     check(_id, String);
     return savedAdvisesCollection.remove({ _id });
   },
+  // save an advise to saved collection
   saveAdvise: (advise) => {
     check(advise, Object);
     // or i can rescieve all the advise properties from client (_id , saved exluded)
@@ -51,32 +81,12 @@ Meteor.methods({
     // then assemble it here and insert it to savedAdvisesCollection
     return savedAdvisesCollection.insert(adviseToSave);
   },
+  // save an advise to saved collection
   updateSave: (_id) => {
     check(_id, String);
     return advisesCollection.update({ _id }, { $set: { saved: true } });
   },
-  logIds: () => {
-    let ids = [];
-    ids = advisesCollection.find({}, { _id: 1 }).map((advise) => advise._id);
-    console.log(ids[4]);
-    for (let i = 0; i < ids.length; i++) {
-      //console.log(ids[i]);
-      // i got all the ids for my docs
-      // now i should insert it into new collection
-    }
-  },
-  collectIds: (_id) => {
-    check(_id, String);
-    advisesCollection.update({ _id }, { $set: { saved: true } });
-  },
 });
 
-Meteor.call("logIds", (err, res) => {
-  if (err) throw new Error(err);
-});
 
-// adviseId
-// id
-// collections for ids its id = 0,1,2,... etc
-// fetch random number and get an id and then fetch tha advise with that id
 Meteor.startup(() => {});
