@@ -26,15 +26,32 @@ Meteor.methods({
     check(skip, Number);
     return advisesCollection.findOne({}, { skip });
   },
-  // return the FirstAdvise
-
-  fetchFirstAdvise: () => {
-    return advisesCollection.findOne({}, {sort:{date : 1}});
+  // change the name later
+  fetchOneEnAdvise: (skip) => {
+    check(skip, Number);
+    return advisesCollection.findOne({language : 'en'}, { skip });
   },
+  fetchOneArAdvise: ( skip) => {
+    check(skip, Number);
+    return advisesCollection.findOne({language : 'ar'}, { skip });
+  },
+  // return the FirstAdvise
+  fetchFirstAdvise: () => {
+    return advisesCollection.findOne({}, { sort: { date: 1 } });
+  },
+  // return en Advise
+  fetchEnglishAdvises: () => {
+    console.log('hey');
+    return advisesCollection.find({language : 'en'}).fetch();
+  },
+  // return ar Advise
+  fetchArabicAdvises: () => {
+    console.log('hey');
+    return advisesCollection.find({language : 'ar'}).fetch();
+  },   
   // return the LastAdvise
-
   fetchLastAdvise: () => {
-    return advisesCollection.findOne({}, {sort:{date : 1}});
+    return advisesCollection.findOne({}, { sort: { date: 1 } });
   },
   // fetch an advise with id
   testFetchOneAdvise: (_id) => {
@@ -50,7 +67,6 @@ Meteor.methods({
     });
   },
   // fetch all advises from saved collection
-
   fetchSavedAdvises: () => {
     return savedAdvisesCollection.find({}).fetch();
   },
@@ -87,6 +103,5 @@ Meteor.methods({
     return advisesCollection.update({ _id }, { $set: { saved: true } });
   },
 });
-
 
 Meteor.startup(() => {});

@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { Meteor } from "meteor/meteor";
 import AddCustomNote from "./addCustomNote";
 
-export default function Advise({ advise, id }) {
+export default function Advise({ advise}) {
+  console.log(advise);
+  const savedOrNot = advise.saved === true ? "allready Saved" : "Save";
   const saveAdvise = () => {
     if (advise.saved === false) {
       // add this advise to savedAdvises collection and do not ferget to add note when you save it
@@ -26,7 +28,8 @@ export default function Advise({ advise, id }) {
       console.log(res);
     });
   };
-  const savedOrNot = advise.saved === true ? "allready Saved" : "Save";
+  console.log("advise" , advise);
+
 
   return (
     <>
@@ -37,6 +40,7 @@ export default function Advise({ advise, id }) {
       <div>
         <textarea placeholder="Save it with note?" />
       </div>
+      <h4>{advise.language || ""}</h4>
       <button onClick={saveAdvise}>{savedOrNot}</button>
       <h1>---------------------------</h1>
     </>

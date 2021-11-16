@@ -5,6 +5,7 @@ import InsertAdvise from "./insertAdvise";
 import FetchSavedAdvises from "./fetchSavedAdvises";
 import { advisesContext } from "../context/context";
 import FetchOneAdvise from "./fetchOneAdvise";
+import Advises from "./advises";
 
 export const App = () => {
   const [advises, setAdvises] = useState([
@@ -53,10 +54,12 @@ export const App = () => {
           return <Advise advise={advise} id={advise._id} key={i} />;
         })}
       </div> 
+      <InsertAdvise />
+      <Advises />
+      
   */
   return (
     <>
-      <InsertAdvise />
       <FetchOneAdvise />
     </>
   );
