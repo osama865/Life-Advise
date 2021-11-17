@@ -85,6 +85,7 @@ Meteor.methods({
     return savedAdvisesCollection.remove({ _id });
   },
   // save an advise to saved collection
+  // need more optimisation by moving more logic to client
   saveAdvise: (advise) => {
     check(advise, Object);
     // or i can rescieve all the advise properties from client (_id , saved exluded)
