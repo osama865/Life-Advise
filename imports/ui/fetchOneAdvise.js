@@ -2,11 +2,12 @@ import React, { Suspense, useEffect, useState } from "react";
 import { Meteor } from "meteor/meteor";
 import Advise from "./Advise";
 
+// fetching one advise per lang by time done just need som cleaning
+
 export default function FetchOneAdvise() {
   const [skip, setSkip] = useState(0);
   const [advise, setAdvise] = useState([]);
   const [end, seteEnd] = useState(false);
-  const [count, setCount] = useState([]);
 
   const fetchAdvise = () => {
     setAdvise([]);
@@ -41,7 +42,6 @@ export default function FetchOneAdvise() {
     setSkip((p) => p + 1);
     console.log("advise.push(res)", advise);
   };
-  Meteor.call("countAdvises", (err, res) => setCount(res));
 
   useEffect(() => {
     setAdvise([]);

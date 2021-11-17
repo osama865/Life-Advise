@@ -11,10 +11,8 @@ export default function Advises() {
   const [ar, setAr] = useState([]);
   const [en, setEn] = useState([]);
   const languages = { en: "fetchEnglishAdvises", ar: "fetchArabicAdvises" };
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
-  
   /**
   |--------------------------------------------------
   | const arr = {
@@ -37,13 +35,14 @@ export default function Advises() {
       setAr(res);
       console.log(res.length);
     });
+      {arr.mixed?.map((advise, i) => {
+        return <Advise advise={advise} key={i} />;
+      })}
   |--------------------------------------------------
   */
-  
 
-  return <div>
-      {arr.mixed?.map((advise, i) => {
-          return <Advise advise={advise} key={i} />;
-        })}
-  </div>;
+  return (
+    <div>
+    </div>
+  );
 }

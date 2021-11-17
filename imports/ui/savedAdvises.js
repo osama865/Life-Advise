@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { Meteor } from "meteor/meteor";
-
 // import {MongoClient} from "mongodb"
 
 /*
@@ -29,11 +28,17 @@ export default function SavedAdvises({ advise, id }) {
   };
 
   const deleteNote = () => {
+    // remove it from user saved
     Meteor.call("deleteAdvise", id, (err, res) => {
       if (err) throw new Error(err);
     });
+
+    // set saved property to not saved from advises collection
+    Meteor.call("resetSave", id, (err, res) => {
+      if (err) throw new Error(err);
+      console.log(res);
+    });
   };
-  clearNote;
   return (
     <>
       <h2>{advise.text}</h2>
@@ -42,11 +47,11 @@ export default function SavedAdvises({ advise, id }) {
       <button onClick={clearNote}>clear note</button>
       <textarea
         ref={note}
-        value={advise.note}
+        defaultValue={advise.note}
         onChange={(e) => setEditedNote(e.target.value)}
       />
       <button onClick={handleNoteEdit}>Edit</button>
-      <div>{''}</div>
+      <div>{advise.language}</div>
       <button onClick={deleteNote}>Remove Advise</button>
     </>
   );

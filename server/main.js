@@ -29,11 +29,11 @@ Meteor.methods({
   // change the name later
   fetchOneEnAdvise: (skip) => {
     check(skip, Number);
-    return advisesCollection.findOne({language : 'en'}, { skip });
+    return advisesCollection.findOne({ language: "en" }, { skip });
   },
-  fetchOneArAdvise: ( skip) => {
+  fetchOneArAdvise: (skip) => {
     check(skip, Number);
-    return advisesCollection.findOne({language : 'ar'}, { skip });
+    return advisesCollection.findOne({ language: "ar" }, { skip });
   },
   // return the FirstAdvise
   fetchFirstAdvise: () => {
@@ -41,14 +41,14 @@ Meteor.methods({
   },
   // return en Advise
   fetchEnglishAdvises: () => {
-    console.log('hey');
-    return advisesCollection.find({language : 'en'}).fetch();
+    console.log("hey");
+    return advisesCollection.find({ language: "en" }).fetch();
   },
   // return ar Advise
   fetchArabicAdvises: () => {
-    console.log('hey');
-    return advisesCollection.find({language : 'ar'}).fetch();
-  },   
+    console.log("hey");
+    return advisesCollection.find({ language: "ar" }).fetch();
+  },
   // return the LastAdvise
   fetchLastAdvise: () => {
     return advisesCollection.findOne({}, { sort: { date: 1 } });
@@ -90,10 +90,10 @@ Meteor.methods({
     // or i can rescieve all the advise properties from client (_id , saved exluded)
     // clone it
     const adviseToSave = advise;
-    delete adviseToSave._id;
+    // hell no this is a mistake
+    // delete adviseToSave._id;
     delete adviseToSave.saved;
     // add note property
-    adviseToSave.note = "note about this advise";
     // then assemble it here and insert it to savedAdvisesCollection
     return savedAdvisesCollection.insert(adviseToSave);
   },
@@ -101,6 +101,11 @@ Meteor.methods({
   updateSave: (_id) => {
     check(_id, String);
     return advisesCollection.update({ _id }, { $set: { saved: true } });
+  },
+  // reset save to unsave
+  resetSave: (_id) => {
+    check(_id, String);
+    return advisesCollection.update({ _id }, { $set: { saved: false } });
   },
 });
 

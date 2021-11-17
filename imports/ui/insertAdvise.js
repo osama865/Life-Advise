@@ -29,12 +29,6 @@ export default function InsertAdvise() {
           Meteor.call("testFetchOneAdvise", res, (err, res) => {
             console.log(res);
           });
-          Meteor.call("fetchFirstAdvise", (err, res) => {
-            // console.log(res);
-          });
-          Meteor.call("fetchLastAdvise", (err, res) => {
-            // console.log(res);
-          });
         }
       );
     }

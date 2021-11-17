@@ -2,34 +2,29 @@ import React, { useState } from "react";
 import { Meteor } from "meteor/meteor";
 import AddCustomNote from "./addCustomNote";
 
-export default function Advise({ advise}) {
-  console.log(advise);
+export default function Advise({ advise, id }) {
+  const [editedNote, setEditedNote] = useState('')
   const savedOrNot = advise.saved === true ? "allready Saved" : "Save";
   const saveAdvise = () => {
     if (advise.saved === false) {
       // add this advise to savedAdvises collection and do not ferget to add note when you save it
+      advise.note = editedNote
       Meteor.call("saveAdvise", advise, id, (err, res) => {
         if (err) throw new Error(err);
-        console.log(res);
       });
       Meteor.call("updateSave", id, (err) => {
         if (err) throw new Error(err);
       });
-    } else {
-      return;
     }
   };
 
   const handleNoteEdit = (e) => {
+    e.preventDefault()
     // update the note
-    console.log("update your note with the new note ", editedNote);
     Meteor.call("updateNote", editedNote, id, (err, res) => {
       if (err) throw new Error(err);
-      console.log(res);
     });
   };
-  console.log("advise" , advise);
-
 
   return (
     <>
@@ -38,9 +33,8 @@ export default function Advise({ advise}) {
       <h4>{advise.source}</h4>
       <h5>{advise.date.toUTCString()}</h5>
       <div>
-        <textarea placeholder="Save it with note?" />
+        <textarea placeholder="Save it with note?" onChange={(e)=>(setEditedNote(e.target.value))} />
       </div>
-      <h4>{advise.language || ""}</h4>
       <button onClick={saveAdvise}>{savedOrNot}</button>
       <h1>---------------------------</h1>
     </>

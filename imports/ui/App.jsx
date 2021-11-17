@@ -6,36 +6,10 @@ import FetchSavedAdvises from "./fetchSavedAdvises";
 import { advisesContext } from "../context/context";
 import FetchOneAdvise from "./fetchOneAdvise";
 import Advises from "./advises";
+import SavedAdvises from "./savedAdvises";
 
 export const App = () => {
-  const [advises, setAdvises] = useState([
-    {
-      text: "life is short , enjoy it",
-      source: "osama.",
-      date: new Date(),
-    },
-    {
-      text: "life is short , enjoy it",
-      source: "osama.",
-      date: new Date(),
-    },
-    {
-      text: "life is short , enjoy it",
-      source: "osama.",
-      date: new Date(),
-    },
-    {
-      text: "life is short , enjoy it",
-      source: "osama.",
-      date: new Date(),
-    },
-    {
-      text: "life is short , enjoy it",
-      source: "osama.",
-      date: new Date(),
-    },
-  ]);
-
+  const [advises, setAdvises] = useState([]);
   useEffect(() => {
     Meteor.call("fetchAllAdvises", (err, res) => {
       if (err) throw new Error(err);
@@ -46,21 +20,25 @@ export const App = () => {
     });
   }, []);
 
-  /*
-   * here some advises
-      favs start
+  return (
+    <>
+      <InsertAdvise />
+      <FetchOneAdvise />
       <div>
         {advises?.map((advise, i) => {
           return <Advise advise={advise} id={advise._id} key={i} />;
         })}
-      </div> 
-      <InsertAdvise />
-      <Advises />
-      
-  */
-  return (
-    <>
-      <FetchOneAdvise />
+      </div>
+      <FetchSavedAdvises />
     </>
   );
 };
+
+/*
+   * here some advises
+      favs start
+      
+      <InsertAdvise />
+      <Advises />
+      <FetchOneAdvise />
+  */
