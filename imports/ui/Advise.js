@@ -1,34 +1,32 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Meteor } from "meteor/meteor";
-import AddCustomNote from "./addCustomNote";
+import { useTracker } from "meteor/react-meteor-data";
 
 export default function Advise({ advise, id }) {
   const [editedNote, setEditedNote] = useState("");
-  const [isSaved, setIsSaved] = useState(true);
+  const [isSaved, setIsSaved] = useState(false);
+  console.log(advise.saved);
   const textfield = useRef();
+  useTracker(() => {
+    Meteor.call("saved", id, (err, res) => {
+      setIsSaved(res);
+      console.log();
+    });
+  });
 
-  useEffect(() => {
-    setIsSaved(advise.saved);
-  }, []);
   const saveAdvise = () => {
     if (advise.saved === false) {
       // add this advise to savedAdvises collection and do not ferget to add note when you save it
       advise.note = editedNote;
-      Meteor.call("saveAdvise", advise, id, (err, res) => {
+      Meteor.call("saveAdvise", advise, (err, res) => {
         if (err) throw new Error(err);
       });
-      Meteor.call("updateSave", id, (err) => {
+      Meteor.call("updateSave", id, (err, res) => {
         if (err) throw new Error(err);
+        setIsSaved(res);
+        console.log(isSaved);
       });
     }
-  };
-
-  const handleNoteEdit = (e) => {
-    e.preventDefault();
-    // update the note
-    Meteor.call("updateNote", editedNote, id, (err, res) => {
-      if (err) throw new Error(err);
-    });
   };
 
   return (
@@ -45,9 +43,17 @@ export default function Advise({ advise, id }) {
           hidden={isSaved}
         />
       </div>
-      <button onClick={saveAdvise}>
-        {isSaved === true ? "allready Saved" : "Save"}
-      </button>
+      <>
+        {isSaved === false ? (
+          <>
+            <button onClick={saveAdvise}>Save</button>
+          </>
+        ) : (
+          <>
+            <button>Allready Saved</button>
+          </>
+        )}
+      </>
       <h1>---------------------------</h1>
     </>
   );

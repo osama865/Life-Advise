@@ -10,7 +10,7 @@ export default function FetchOneAdvise() {
   const [end, seteEnd] = useState(false);
 
   const fetchAdvise = () => {
-    setAdvise([]);
+    setAdvise([])
     Meteor.call("fetchOneEnAdvise", skip, (err, res) => {
       if (err)
         throw new Error(
@@ -40,32 +40,11 @@ export default function FetchOneAdvise() {
       }
     });
     setSkip((p) => p + 1);
-    console.log("advise.push(res)", advise);
   };
 
   useEffect(() => {
-    setAdvise([]);
     fetchAdvise();
   }, []);
-  /**
-  |--------------------------------------------------
-  |  <div>
-        {end === true ? (
-          <h1>we dont have another advises</h1>
-        ) : (
-          <>
-            <h3>
-              my job is to fetch one advise by time and give the chance to fetch
-              more advises
-            </h3>
-            <h2>{advise.text}</h2>
-            <h4>{advise.source}</h4>
-            <button onClick={fetchAdvise}>fetch advise</button>
-          </>
-        )}
-      </div>
-  |--------------------------------------------------
-  */
 
   return (
     <>
@@ -76,7 +55,7 @@ export default function FetchOneAdvise() {
         ) : (
           <div>
             {advise?.map((ad, i) => (
-              <Advise advise={ad} key={i} />
+              <Advise advise={ad} id={ad._id} key={i} />
             ))}
             <button onClick={fetchAdvise}>fetch advise</button>
           </div>

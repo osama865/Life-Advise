@@ -26,9 +26,6 @@ export default function InsertAdvise() {
         },
         (err, res) => {
           if (err) throw new Error(err);
-          Meteor.call("testFetchOneAdvise", res, (err, res) => {
-            console.log(res);
-          });
         }
       );
     }

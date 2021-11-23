@@ -3,6 +3,7 @@ import { check } from "meteor/check";
 import advisesCollection, {
   savedAdvisesCollection,
 } from "../database/collections/advisesCollection";
+import "./publications/index";
 
 Meteor.methods({
   // insert an advise
@@ -14,11 +15,11 @@ Meteor.methods({
   fetchAdviseDaily: () => {},
   // fetch all advises from advises collection
   fetchAllAdvises: () => {
-    return advisesCollection.find({}).fetch();
+    return advisesCollection.find().fetch();
   },
   // return the count of advises
   countAdvises: () => {
-    return advisesCollection.find({}).count();
+    return advisesCollection.find().count();
   },
   // fetch advises one by one
   // must change the name to fetch by skip or anything
@@ -58,14 +59,6 @@ Meteor.methods({
     check(_id, String);
     return advisesCollection.findOne({ _id });
   },
-  // clean it later
-  insertSavedAdvises: (savedAdvises) => {
-    savedAdvises.map((advise) => {
-      savedAdvisesCollection.insert(advise, (err, res) => {
-        if (err) throw new Error(err);
-      });
-    });
-  },
   // fetch all advises from saved collection
   fetchSavedAdvises: () => {
     return savedAdvisesCollection.find({}).fetch();
@@ -88,14 +81,8 @@ Meteor.methods({
   // need more optimisation by moving more logic to client
   saveAdvise: (advise) => {
     check(advise, Object);
-    // or i can rescieve all the advise properties from client (_id , saved exluded)
-    // clone it
     const adviseToSave = advise;
-    // hell no this is a mistake
-    // delete adviseToSave._id;
     delete adviseToSave.saved;
-    // add note property
-    // then assemble it here and insert it to savedAdvisesCollection
     return savedAdvisesCollection.insert(adviseToSave);
   },
   // save an advise to saved collection
@@ -107,6 +94,13 @@ Meteor.methods({
   resetSave: (_id) => {
     check(_id, String);
     return advisesCollection.update({ _id }, { $set: { saved: false } });
+  },
+  saved: (_id) => {
+    if (_id) {
+      check(_id, String);
+      const s = advisesCollection.findOne({ _id });
+      return s.saved;
+    }
   },
 });
 
