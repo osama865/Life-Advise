@@ -12,7 +12,6 @@ export default function FetchOneAdvise() {
   const [end, seteEnd] = useState(false);
 
   const shuffle = (max) => {
-    console.log(max, "max");
     // order
     let arr = [];
     for (let i = 0; i < max; i++) {
@@ -22,11 +21,9 @@ export default function FetchOneAdvise() {
     // shuffle
     tempArr.sort((a, b) => 0.5 - Math.random());
     setIndexes(tempArr);
-    // log it in order
   };
 
   function increment() {
-    console.log(indexes, "indexes array");
     s = indexes[i];
     if (s === undefined) {
       return;
@@ -37,7 +34,7 @@ export default function FetchOneAdvise() {
 
   const fetchAdvise = async () => {
     setAdvise([]);
-    if (indexes.length -1 <= count) {
+    if (i < count) {
       Meteor.call("fetchOneAdvise", increment(), (err, res) => {
         if (err)
           throw new Error(
@@ -69,26 +66,25 @@ export default function FetchOneAdvise() {
         }
       });
     } else {
-      seteEnd(true)
+      seteEnd(true);
+      i = s = 0;
     }
   };
 
   useEffect(() => {
     Meteor.call("countAdvises", (err, res) => {
-      setCount(res +1);
+      setCount(res);
     });
-    console.log("whos first ? me fetching ");
-    console.log(skip, "skipping");
-    fetchAdvise();
+    if (indexes !== undefined || indexes.length !== 0) {
+      fetchAdvise();
+    }
     seteEnd(false);
   }, [indexes]);
 
   useEffect(() => {
-    console.log("whos first ? me shuffle ");
     shuffle(count);
   }, [count]);
 
-  //useEffect(()=>{})
   return (
     <>
       hello
@@ -109,40 +105,3 @@ export default function FetchOneAdvise() {
     </>
   );
 }
-
-/**
-|--------------------------------------------------
-| setSkip(shuffled[temp]);
-    if (temp >= count) {
-      return;
-    }
-    
-    console.log("shuffled", shuffled[temp]);
-    console.log(skip);
-    console.log("temp ", temp);
-|--------------------------------------------------
-*/
-/**
-  |--------------------------------------------------
-  | setAdvise([]);
-    setAdvise([]);
-    Meteor.call("fetchOneAdvise", indexes[i], (err, res) => {
-      if (err)
-        throw new Error(
-          "occured when fetching advise , check the skip arg",
-          err
-        );
-      if (res === undefined) {
-        seteEnd(true);
-      } else {
-        setAdvise((prev) => {
-          return [...new Set([...prev, res])];
-        });
-      }
-    });
-  |--------------------------------------------------
-  */
-
-// order an array
-// reorder it
-// use its values as skip parameters (random numbers)
