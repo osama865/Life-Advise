@@ -5,12 +5,10 @@ import { useTracker } from "meteor/react-meteor-data";
 export default function Advise({ advise, id }) {
   const [editedNote, setEditedNote] = useState("");
   const [isSaved, setIsSaved] = useState(false);
-  console.log(advise.saved);
   const textfield = useRef();
   useTracker(() => {
     Meteor.call("saved", id, (err, res) => {
       setIsSaved(res);
-      console.log();
     });
   });
 
@@ -24,7 +22,6 @@ export default function Advise({ advise, id }) {
       Meteor.call("updateSave", id, (err, res) => {
         if (err) throw new Error(err);
         setIsSaved(res);
-        console.log(isSaved);
       });
     }
   };

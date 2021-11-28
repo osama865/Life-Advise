@@ -18,12 +18,8 @@ export const App = () => {
   
 
   return (
-    <><InsertAdvise />
-      <FetchOneAdvise />
-      {
-        advs?.map((advise , i)=>(<Advise advise={advise} id={advise._id} key={i} />))
-      }
-      <FetchSavedAdvises />
+    <>
+    <FetchOneAdvise />
     </>
   );
 };
