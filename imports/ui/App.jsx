@@ -12,14 +12,20 @@ export const App = () => {
   const { advs } = useTracker(() => {
     Meteor.subscribe("advises");
     let advs = [];
-    advs = advisesCollection.find().fetch();
+    advs = advisesCollection.find({}, { limit: 100 }).fetch();
     return { advs };
   });
-  
 
   return (
     <>
-    <FetchOneAdvise />
+      <InsertAdvise />
+      {advs?.map((ad, i) => (
+        <Advise advise={ad} id={ad._id} key={i} />
+      ))}
     </>
   );
 };
+
+/**
+ *
+ */

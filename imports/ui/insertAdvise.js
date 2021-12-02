@@ -4,7 +4,7 @@ import { Meteor } from "meteor/meteor";
 // use tracker for meteor calls
 export default function InsertAdvise() {
   const [advise, setAdvise] = useState("");
-  const [source, setSource] = useState("");
+  const [author, setAuthor] = useState("");
   const [language, setLanguage] = useState("en");
 
   const handleInsert = (e) => {
@@ -18,7 +18,7 @@ export default function InsertAdvise() {
         "insertAdvise",
         {
           text: advise.toString(),
-          source: source.toString(),
+          author: author.toString(),
           saved: false,
           date: new Date(),
           index: count,
@@ -31,7 +31,7 @@ export default function InsertAdvise() {
     }
     // clear states
     setAdvise("");
-    setSource("");
+    setAuthor("");
   };
 
   const changeLangauge = (e) => {
@@ -48,9 +48,9 @@ export default function InsertAdvise() {
           onChange={(e) => setAdvise(e.target.value)}
         />
         <input
-          value={source}
-          placeholder="Type it's source"
-          onChange={(e) => setSource(e.target.value)}
+          value={author}
+          placeholder="Type it's author"
+          onChange={(e) => setAuthor(e.target.value)}
         />
         <button onClick={handleInsert}>Insert it</button>
       </form>

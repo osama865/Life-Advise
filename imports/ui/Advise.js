@@ -28,10 +28,8 @@ export default function Advise({ advise, id }) {
 
   return (
     <>
-      <h1>---------------------------</h1>
       <h2>{advise.text}</h2>
-      <h4>{advise.source}</h4>
-      <h5>{advise.date.toUTCString()}</h5>
+      <h4>{advise.author}</h4>
       <div>
         <textarea
           ref={textfield}
@@ -41,7 +39,7 @@ export default function Advise({ advise, id }) {
         />
       </div>
       <>
-        {isSaved === false ? (
+        {isSaved === undefined || false ? (
           <>
             <button onClick={saveAdvise}>Save</button>
           </>

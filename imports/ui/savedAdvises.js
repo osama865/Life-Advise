@@ -30,8 +30,7 @@ export default function SavedAdvises({ advise, id }) {
   return (
     <>
       <h2>{advise.text}</h2>
-      <h4>{advise.source}</h4>
-      <h5>{advise.date.toUTCString()}</h5>
+      <h4>{advise.author}</h4>
       <button onClick={clearNote}>clear note</button>
       <textarea
         ref={note}
@@ -41,6 +40,8 @@ export default function SavedAdvises({ advise, id }) {
       <button onClick={handleNoteEdit}>Edit</button>
       <div>{advise.language}</div>
       <button onClick={deleteNote}>Remove Advise</button>
+      <h1>---------------------------</h1>
+
     </>
   );
 }
