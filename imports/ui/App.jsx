@@ -7,7 +7,6 @@ import FetchOneAdvise from "./fetchOneAdvise";
 import SavedAdvises from "./savedAdvises";
 import { useTracker } from "meteor/react-meteor-data";
 import advisesCollection from "../../database/collections/advisesCollection";
-
 export const App = () => {
   const { advs } = useTracker(() => {
     Meteor.subscribe("advises");
@@ -18,7 +17,6 @@ export const App = () => {
 
   return (
     <>
-      <InsertAdvise />
       {advs?.map((ad, i) => (
         <Advise advise={ad} id={ad._id} key={i} />
       ))}

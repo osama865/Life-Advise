@@ -1,30 +1,52 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Meteor } from "meteor/meteor";
 import { useTracker } from "meteor/react-meteor-data";
+import zangodb from "zangodb";
+import { useIndexDB } from "./indexDB";
 
+const advises = useIndexDB("advises");
+const ids = useIndexDB("ids");
 export default function Advise({ advise, id }) {
   const [editedNote, setEditedNote] = useState("");
   const [isSaved, setIsSaved] = useState(false);
   const textfield = useRef();
-  useTracker(() => {
-    Meteor.call("saved", id, (err, res) => {
-      setIsSaved(res);
-    });
-  });
 
   const saveAdvise = () => {
-    if (advise.saved === false) {
-      // add this advise to savedAdvises collection and do not ferget to add note when you save it
-      advise.note = editedNote;
-      Meteor.call("saveAdvise", advise, (err, res) => {
-        if (err) throw new Error(err);
-      });
-      Meteor.call("updateSave", id, (err, res) => {
-        if (err) throw new Error(err);
-        setIsSaved(res);
-      });
-    }
+    advise.note = editedNote;
+    let _id = id;
+    advises.insert(advise);
+    ids.insert({ _id });
+    setIsSaved(true);
+  }
+
+  /**
+  |--------------------------------------------------
+  | getSavedAdvisesIds().then((result) => {
+      indexes = result;
+      console.log(indexes.length);
+      itrate(indexes);
+    });
   };
+
+  const getSavedAdvisesIds = async () => {
+    let indexes = [];
+    indexes = await ids.fetchAll();
+    console.log(indexes);
+    return indexes;
+  };
+
+  const itrate = (array) => {
+    const arr = array
+    console.log(arr);
+    arr?.map((value) => {
+      console.log(value._id);
+    });
+  };
+  |--------------------------------------------------
+  */
+  
+
+  console.log(id);
 
   return (
     <>
@@ -39,13 +61,13 @@ export default function Advise({ advise, id }) {
         />
       </div>
       <>
-        {isSaved === undefined || false ? (
+        {isSaved === false ? (
           <>
             <button onClick={saveAdvise}>Save</button>
           </>
         ) : (
           <>
-            <button>Allready Saved</button>
+            <button>Saved</button>
           </>
         )}
       </>
