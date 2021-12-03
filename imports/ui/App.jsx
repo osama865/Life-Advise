@@ -17,17 +17,14 @@ export const App = () => {
 
   return (
     <>
-      {advs?.map((ad, i) => (
-        <Advise advise={ad} id={ad._id} key={i} />
-      ))}
+      <FetchSavedAdvises />
     </>
   );
 };
 
 /**
- *(function () {
-    if (savedIds.includes(id) === true) {
-      setIsSaved(true);
-    }
-  })();
+ *<FetchOneAdvise />
+      {advs?.map((ad, i) => (
+        <Advise advise={ad} id={ad._id} key={i} />
+      ))}
  */

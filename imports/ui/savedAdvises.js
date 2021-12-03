@@ -1,14 +1,16 @@
 import React, { useRef, useState } from "react";
 import { Meteor } from "meteor/meteor";
-// import {MongoClient} from "mongodb"
+import { useIndexDB } from "./indexDB";
 
-export default function SavedAdvises({ advise, id }) {
+const savedAdvisesDB = useIndexDB("advises");
+const ids = useIndexDB("ids");
+
+export default function SavedAdvises({ advise, _id }) {
   const [editedNote, setEditedNote] = useState("");
-  const handleNoteEdit = (e) => {
+
+  const updateNote = (e) => {
     // update the note
-    Meteor.call("updateNote", editedNote, id, (err, res) => {
-      if (err) throw new Error(err);
-    });
+    savedAdvisesDB.update({ _id }, { note: editedNote });
   };
   const note = useRef();
   const clearNote = (e) => {
@@ -16,16 +18,11 @@ export default function SavedAdvises({ advise, id }) {
     setEditedNote("");
   };
 
-  const deleteNote = () => {
+  const remove = () => {
     // remove it from user saved
-    Meteor.call("deleteAdvise", id, (err, res) => {
-      if (err) throw new Error(err);
-    });
-
-    // set saved property to not saved from advises collection
-    Meteor.call("resetSave", id, (err, res) => {
-      if (err) throw new Error(err);
-    });
+    savedAdvisesDB.remove({ _id });
+    // remove its id from ids array
+    ids.remove({ _id });
   };
   return (
     <>
@@ -37,11 +34,10 @@ export default function SavedAdvises({ advise, id }) {
         defaultValue={advise.note}
         onChange={(e) => setEditedNote(e.target.value)}
       />
-      <button onClick={handleNoteEdit}>Edit</button>
-      <div>{advise.language}</div>
-      <button onClick={deleteNote}>Remove Advise</button>
+      <button onClick={updateNote}>Edit</button>
+      <div></div>
+      <button onClick={remove}>Remove Advise</button>
       <h1>---------------------------</h1>
-
     </>
   );
 }
