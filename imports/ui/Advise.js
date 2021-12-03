@@ -6,6 +6,13 @@ import { useIndexDB } from "./indexDB";
 
 const advises = useIndexDB("advises");
 const ids = useIndexDB("ids");
+let savedIds = [];
+
+(async () => {
+  savedIds = await ids.fetchAll();
+  console.log(savedIds);
+  return savedIds;
+})();
 export default function Advise({ advise, id }) {
   const [editedNote, setEditedNote] = useState("");
   const [isSaved, setIsSaved] = useState(false);
@@ -16,37 +23,36 @@ export default function Advise({ advise, id }) {
     let _id = id;
     advises.insert(advise);
     ids.insert({ _id });
-    setIsSaved(true);
-  }
+    setIsSaved(true)
+  };
 
-  /**
-  |--------------------------------------------------
-  | getSavedAdvisesIds().then((result) => {
-      indexes = result;
-      console.log(indexes.length);
-      itrate(indexes);
+  useEffect(() => {
+    savedIds.map((val) => {
+      if (val._id === id) {
+        console.log('matched');
+        setIsSaved(true);
+      }
     });
-  };
+  }, []);
 
-  const getSavedAdvisesIds = async () => {
-    let indexes = [];
-    indexes = await ids.fetchAll();
-    console.log(indexes);
-    return indexes;
-  };
-
-  const itrate = (array) => {
-    const arr = array
+  /** APIs / tested 
+  |--------------------------------------------------
+  | const compareIds = (array) => {
+    // first we iterate ids inside the array
+    const arr = array;
     console.log(arr);
     arr?.map((value) => {
       console.log(value._id);
     });
+
+    // second we compare every fetched adivses id with the saved ones in
+    // client db
+    if () {
+      
+    }
   };
   |--------------------------------------------------
   */
-  
-
-  console.log(id);
 
   return (
     <>

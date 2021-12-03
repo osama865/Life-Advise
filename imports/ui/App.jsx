@@ -11,7 +11,7 @@ export const App = () => {
   const { advs } = useTracker(() => {
     Meteor.subscribe("advises");
     let advs = [];
-    advs = advisesCollection.find({}, { limit: 100 }).fetch();
+    advs = advisesCollection.find({}, { limit: 50 }).fetch();
     return { advs };
   });
 
@@ -25,5 +25,9 @@ export const App = () => {
 };
 
 /**
- *
+ *(function () {
+    if (savedIds.includes(id) === true) {
+      setIsSaved(true);
+    }
+  })();
  */
