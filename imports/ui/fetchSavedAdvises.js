@@ -7,18 +7,11 @@ import { useIndexDB } from "./indexDB";
 const savedAdvisesDB = useIndexDB("advises");
 export default function FetchSavedAdvises() {
   const [advises, setAdvises] = useState([]);
-  const { advs } = useTracker(async () => {
-    Meteor.subscribe("savedAdvises");
-    let advs = [];
-    advs = advises
-    console.log(advs , '0000000000000000');
-    return { advs };
-  });
 
-  useEffect(() => {
-    savedAdvisesDB.fetchAll().then((res) => {
-     setAdvises(res)
-    });
+  useEffect(async () => {
+    let advs = [];
+    advs = await savedAdvisesDB.fetchAll();
+    setAdvises(advs);
   }, []);
 
   return (
@@ -33,7 +26,17 @@ export default function FetchSavedAdvises() {
 
 /**
 |--------------------------------------------------
-| 
+|
+ const advs = useTracker(async () => {
+    let advs = [];
+    advs = await savedAdvisesDB.fetchAll();
+    //setAdvises(advs)
+    return advs;
+  });
+ useEffect(() => {
+    savedAdvisesDB.fetchAll().then((res) => {
+     setAdvises(res)
+    });
+  }, []);
 |--------------------------------------------------
 */
-

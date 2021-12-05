@@ -9,12 +9,13 @@ const useIndexDB = (collectionName) => {
   // APIs
   // to fetch one doc selector could be _id or any property
   const fetchOne = (selector) => {
-    collection.findOne(selector).then((res) => console.log(res));
+    return collection.findOne(selector);
   };
 
   // to fetch all docs in specific collection
-  const fetchAll = () => {
-    return collection.find({}).toArray();
+  const fetchAll = async () => {
+    const array = collection.find({}).toArray();
+    return array
   };
 
   // to insert doc or multiple docs to specific collection
@@ -23,7 +24,6 @@ const useIndexDB = (collectionName) => {
     collection
       .insert(docs)
       .then((result) => {
-        fetchAll();
       })
       .catch((err) => {
         console.error(err, "dupplicated docs");

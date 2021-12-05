@@ -22,7 +22,8 @@ export default function SavedAdvises({ advise, _id }) {
     // remove it from user saved
     savedAdvisesDB.remove({ _id });
     // remove its id from ids array
-    ids.remove({ _id });
+    ids.remove({ _id })
+    location.reload()
   };
   return (
     <>

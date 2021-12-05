@@ -9,7 +9,7 @@ const ids = useIndexDB("ids");
 let savedIds = [];
 
 (async () => {
-  savedIds = await ids.fetchAll();
+  savedIds = ids.fetchAll();
   console.log(savedIds);
   return savedIds;
 })();
