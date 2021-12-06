@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Meteor } from "meteor/meteor";
 import { useTracker } from "meteor/react-meteor-data";
-import advisesCollection from "../../database/collections/advisesCollection";
+import advisesCollection from "../../../database/collections/advisesCollection";
 import Advise from "./Advise";
 export default function FetchAllAdvises() {
   const { advs } = useTracker(() => {
