@@ -1,12 +1,15 @@
 import React, { useRef, useState } from "react";
 import { Meteor } from "meteor/meteor";
 import { useIndexDB } from "./indexDB";
+import { changes, get, set } from "./shared";
+import { useTracker } from "meteor/react-meteor-data";
 
 const savedAdvisesDB = useIndexDB("advises");
 const ids = useIndexDB("ids");
 
 export default function SavedAdvises({ advise, _id }) {
   const [editedNote, setEditedNote] = useState("");
+  const [isRemoved, setIsRemoved] = useState(false);
 
   const updateNote = (e) => {
     // update the note
@@ -19,14 +22,12 @@ export default function SavedAdvises({ advise, _id }) {
   };
 
   const remove = () => {
-    // remove it from user saved
     savedAdvisesDB.remove({ _id });
-    // remove its id from ids array
-    ids.remove({ _id })
-    location.reload()
+    ids.remove({ _id });
+    setIsRemoved(true);
   };
   return (
-    <>
+    <div hidden={isRemoved}>
       <h2>{advise.text}</h2>
       <h4>{advise.author}</h4>
       <button onClick={clearNote}>clear note</button>
@@ -39,6 +40,6 @@ export default function SavedAdvises({ advise, _id }) {
       <div></div>
       <button onClick={remove}>Remove Advise</button>
       <h1>---------------------------</h1>
-    </>
+    </div>
   );
 }

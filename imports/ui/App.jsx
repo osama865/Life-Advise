@@ -18,13 +18,14 @@ export const App = () => {
   return (
     <>
       <FetchSavedAdvises />
+      {advs?.map((ad, i) => (
+        <Advise advise={ad} id={ad._id} key={i} />
+      ))}
     </>
   );
 };
 
 /**
  *<FetchOneAdvise />
-      {advs?.map((ad, i) => (
-        <Advise advise={ad} id={ad._id} key={i} />
-      ))}
+      
  */

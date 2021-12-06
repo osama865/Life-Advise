@@ -4,6 +4,7 @@ const db = new zangodb.Db("Life-Advise", 3, {
   advises: ["advises"],
   ids: ["ids"],
 });
+
 const useIndexDB = (collectionName) => {
   const collection = db.collection(collectionName);
   // APIs
@@ -15,7 +16,7 @@ const useIndexDB = (collectionName) => {
   // to fetch all docs in specific collection
   const fetchAll = async () => {
     const array = collection.find({}).toArray();
-    return array
+    return array;
   };
 
   // to insert doc or multiple docs to specific collection
@@ -23,8 +24,7 @@ const useIndexDB = (collectionName) => {
     console.log(docs, "docs");
     collection
       .insert(docs)
-      .then((result) => {
-      })
+      .then((result) => {})
       .catch((err) => {
         console.error(err, "dupplicated docs");
       });
@@ -36,7 +36,7 @@ const useIndexDB = (collectionName) => {
     collection
       .update(selector, newValu)
       .then((result) => {
-        console.log('result update');
+        console.log("result update");
       })
       .catch((err) => {
         console.error(err);
@@ -47,14 +47,12 @@ const useIndexDB = (collectionName) => {
   const remove = (selector) => {
     collection
       .remove(selector)
-      .then((result) => {
-        console.log(result);
-      })
+      .then((result) => {})
       .catch((err) => {
         console.error(err);
       });
   };
-  return collection , { insert, fetchAll, fetchOne, remove, update };
+  return collection, { insert, fetchAll, fetchOne, remove, update };
 };
 export { useIndexDB };
 /**

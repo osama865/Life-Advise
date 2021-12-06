@@ -9,9 +9,8 @@ const ids = useIndexDB("ids");
 let savedIds = [];
 
 (async () => {
-  savedIds = ids.fetchAll();
+  savedIds =await ids.fetchAll();
   console.log(savedIds);
-  return savedIds;
 })();
 export default function Advise({ advise, id }) {
   const [editedNote, setEditedNote] = useState("");
@@ -23,36 +22,17 @@ export default function Advise({ advise, id }) {
     let _id = id;
     advises.insert(advise);
     ids.insert({ _id });
-    setIsSaved(true)
+    setIsSaved(true);
   };
 
   useEffect(() => {
-    savedIds.map((val) => {
+    savedIds?.map((val) => {
       if (val._id === id) {
-        console.log('matched');
+        console.log("matched");
         setIsSaved(true);
       }
     });
   }, []);
-
-  /** APIs / tested 
-  |--------------------------------------------------
-  | const compareIds = (array) => {
-    // first we iterate ids inside the array
-    const arr = array;
-    console.log(arr);
-    arr?.map((value) => {
-      console.log(value._id);
-    });
-
-    // second we compare every fetched adivses id with the saved ones in
-    // client db
-    if () {
-      
-    }
-  };
-  |--------------------------------------------------
-  */
 
   return (
     <>
