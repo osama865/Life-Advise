@@ -1,9 +1,11 @@
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Meteor } from "meteor/meteor";
-import Advise from "./Advise";
+import Advise from "../Advise";
 
 let s = 0;
 let i = 0;
+
+// fix this shit later
 export default function FetchOneAdvise() {
   const [count, setCount] = useState(0);
   const [skip, setSkip] = useState(0);

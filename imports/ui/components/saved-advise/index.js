@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Meteor } from "meteor/meteor";
-import { useIndexDB } from "./indexDB";
+import { useIndexDB } from "../../../../database/client/indexDB";
 import { useTracker } from "meteor/react-meteor-data";
 
 const savedAdvisesDB = useIndexDB("advises");

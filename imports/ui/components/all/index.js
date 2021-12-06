@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Meteor } from "meteor/meteor";
 import { useTracker } from "meteor/react-meteor-data";
-import advisesCollection from "../../../database/collections/advisesCollection";
-import Advise from "./Advise";
+import Advise from "../Advise";
+import advisesCollection from "../../../../database/collections/advisesCollection";
 export default function FetchAllAdvises() {
   const { advs } = useTracker(() => {
     Meteor.subscribe("advises");
@@ -10,6 +10,7 @@ export default function FetchAllAdvises() {
     advs = advisesCollection.find({}, { limit: 50 }).fetch();
     return { advs };
   });
+
   return (
     <div>
       {advs?.map((ad, i) => (

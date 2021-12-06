@@ -1,8 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Meteor } from "meteor/meteor";
-import { useTracker } from "meteor/react-meteor-data";
-import zangodb from "zangodb";
-import { useIndexDB } from "./indexDB";
+import { useIndexDB } from "../../../../database/client/indexDB";
 
 const advises = useIndexDB("advises");
 const ids = useIndexDB("ids");
@@ -10,7 +7,6 @@ let savedIds = [];
 
 (async () => {
   savedIds = await ids.fetchAll();
-  console.log(savedIds);
 })();
 export default function Advise({ advise, id }) {
   const [editedNote, setEditedNote] = useState("");
@@ -28,7 +24,6 @@ export default function Advise({ advise, id }) {
   const findMatched = () => {
     savedIds?.map((val) => {
       if (val._id === id) {
-        console.log("matched");
         setIsSaved(true);
       }
     });
