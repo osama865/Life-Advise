@@ -3,7 +3,6 @@ import SavedAdvises from "./savedAdvises";
 import { useTracker } from "meteor/react-meteor-data";
 //import { savedAdvisesCollection } from "../../database/collections/advisesCollection";
 import { useIndexDB } from "./indexDB";
-import { get } from "./shared";
 window.onstorage = () => {
   console.log("changes");
 };
@@ -17,7 +16,6 @@ export default function FetchSavedAdvises() {
     setAdvises(advs);
   }, []);
 
-  console.log('hello');
   return (
     <>
       here is favorite advises

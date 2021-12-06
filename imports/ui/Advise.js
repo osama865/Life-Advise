@@ -9,7 +9,7 @@ const ids = useIndexDB("ids");
 let savedIds = [];
 
 (async () => {
-  savedIds =await ids.fetchAll();
+  savedIds = await ids.fetchAll();
   console.log(savedIds);
 })();
 export default function Advise({ advise, id }) {
@@ -25,13 +25,17 @@ export default function Advise({ advise, id }) {
     setIsSaved(true);
   };
 
-  useEffect(() => {
+  const findMatched = () => {
     savedIds?.map((val) => {
       if (val._id === id) {
         console.log("matched");
         setIsSaved(true);
       }
     });
+  };
+
+  useEffect(() => {
+    findMatched();
   }, []);
 
   return (
