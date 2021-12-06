@@ -1,30 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Meteor } from "meteor/meteor";
-import Advise from "./Advise";
-import InsertAdvise from "./insertAdvise";
 import FetchSavedAdvises from "./fetchSavedAdvises";
 import FetchOneAdvise from "./fetchOneAdvise";
-import SavedAdvises from "./savedAdvises";
-import { useTracker } from "meteor/react-meteor-data";
-import advisesCollection from "../../database/collections/advisesCollection";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import NotFound from "./404";
+import FetchAllAdvises from "./fetchAllAdvises";
 export const App = () => {
-  const { advs } = useTracker(() => {
-    Meteor.subscribe("advises");
-    let advs = [];
-    advs = advisesCollection.find({}, { limit: 50 }).fetch();
-    return { advs };
-  });
-
   return (
     <>
-      <FetchSavedAdvises />
+      <Router>
+        <Routes>
+          <Route exact path="/saved" element={<FetchSavedAdvises />} />
+          <Route exact path="/random" element={<FetchOneAdvise />} />
+          <Route exact path="/all" element={<FetchAllAdvises />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
     </>
   );
 };
-
-/**
- *<FetchOneAdvise />
-      {advs?.map((ad, i) => (
-        <Advise advise={ad} id={ad._id} key={i} />
-      ))}
- */
