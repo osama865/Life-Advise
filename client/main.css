@@ -1,5 +1,126 @@
-* {
-  margin-bottom: 10px;
-  text-align: center;
-  background-color: rgb(127, 133, 133);
+:root {
+  --primary-dark: #001e3c;
+  --secondary-dark: #132f4c;
+  --primary-light: rgba(255, 255, 255, 0.5);
+  --secondary-light: #ebebeb54;
+  --violet: #674ae9;
+  --violet-bg: #674ae91a;
+  --brown: #c09b78;
+  --brown-bg: #c09b7817;
+  --blue: #001e3c;
+  --blue-bg: #24003c50;
+  --pink: #a06bbe;
+  --pink-bg: #a06bbe27;
+}
+
+.qoute {
+  font-size: 1.4em;
+  width: 60%;
+  margin: 50px auto;
+  font-style: italic;
+  padding: 1.2em 30px 1.2em 75px;
+  line-height: 1.6;
+  position: relative;
+  border-radius: 16px;
+}
+
+.color1 {
+  border-left: 8px solid var(--secondary-light);
+  color: var(--secondary-light);
+  background-color: var(--brown-bg);
+}
+
+.color2 {
+  border-left: 8px solid #674ae9;
+  color: #674ae9;
+  background-color: var(--blue-bg);
+}
+
+.color3 {
+  border-left: 8px solid #c09b78;
+  color: #c09b78;
+  /* background-color: var(--brown-bg); */
+  background-color: var(--brown-bg);
+}
+
+.color4 {
+  border-left: 8px solid #a06bbe;
+  color: #a06bbe;
+  background-color: var(--violet-bg);
+}
+
+.theme-dark {
+  background-color: var(--secondary-light);
+  background-color: var(--primary-dark);
+}
+
+.theme-light {
+  background-color: var(--primary-light);
+  background-color: var(--secondary-light);
+}
+.blockquote {
+  font-size: 1.4em;
+  width: 60%;
+  margin: 50px auto;
+  font-style: italic;
+  padding: 1.2em 30px 1.2em 75px;
+  /* border-left: 8px solid #8578c0;
+    color: #8578c0; */
+  line-height: 1.6;
+  position: relative;
+  border-radius: 16px;
+}
+
+.blockquote::before {
+  content: "\201C";
+  font-size: 4em;
+  position: absolute;
+  left: 10px;
+  top: -10px;
+}
+
+.blockquote::after {
+  content: "";
+}
+
+.blockquote span {
+  display: block;
+  font-weight: bold;
+  margin-top: 1em;
+}
+.btn {
+  background-color: var(--brown-bg);
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: var(--brown);
+}
+
+textarea {
+  background-color: var(--violet-bg);
+  color: white;
+  font-size: 16px;
+  resize: none;
+}
+.options {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+  display: flex;
+  flex-direction: column;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3em;
+}
+.favorite {
+  align-self: center;
 }
