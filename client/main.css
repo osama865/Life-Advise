@@ -11,6 +11,11 @@
   --blue-bg: #24003c50;
   --pink: #a06bbe;
   --pink-bg: #a06bbe27;
+  --grey: #8b8b8b4b;
+}
+
+html {
+  background-color: #001e3c;
 }
 
 .qoute {
@@ -59,7 +64,7 @@
   background-color: var(--secondary-light);
 }
 .blockquote {
-  font-size: 1.4em;
+  font-size: 1.5em;
   width: 60%;
   margin: 50px auto;
   font-style: italic;
@@ -68,7 +73,7 @@
     color: #8578c0; */
   line-height: 1.6;
   position: relative;
-  border-radius: 16px;
+  border-radius: 24px;
 }
 
 .blockquote::before {
@@ -85,7 +90,8 @@
 
 .blockquote span {
   display: block;
-  font-weight: bold;
+  font-weight: 300;
+  font-size: .9em;
   margin-top: 1em;
 }
 .btn {
@@ -99,7 +105,11 @@
 
 /* Darker background on mouse-over */
 .btn:hover {
-  background-color: var(--brown);
+  background-color: var(--grey);
+}
+
+.saved , .btn:hover {
+  
 }
 
 textarea {
@@ -119,7 +129,7 @@ textarea {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.3em;
+  row-gap: 0.3em;
 }
 .favorite {
   align-self: center;

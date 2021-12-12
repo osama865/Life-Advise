@@ -8,7 +8,6 @@ Meteor.startup(() => {
     <Router>
       <App />
     </Router>,
-
     document.getElementById("react-target")
   );
 });

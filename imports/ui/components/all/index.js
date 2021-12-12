@@ -12,10 +12,10 @@ export default function FetchAllAdvises() {
   });
 
   return (
-    <div>
+    <>
       {advs?.map((ad, i) => (
         <Advise advise={ad} id={ad._id} key={i} />
       ))}
-    </div>
+    </>
   );
 }

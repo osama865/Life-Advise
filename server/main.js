@@ -16,7 +16,7 @@ Meteor.methods({
   fetchAdviseDaily: () => {},
   // fetch all advises from advises collection
   fetchAllAdvises: () => {
-    return advisesCollection.find({},{limit : 100}).fetch();
+    return advisesCollection.find({}, { limit: 100 }).fetch();
   },
   // return the count of advises
   countAdvises: () => {
@@ -104,11 +104,25 @@ Meteor.methods({
     }
   },
 });
+
 Meteor.startup(() => {});
 
 /**
 |--------------------------------------------------
-| 
+|  const path = "/home/osama/Desktop/Meteors/Life/imports/api/all2.json";
+  const encode = "utf-8";
+
+  const readFile = () => {
+    const data = fs.readFileSync(path, encode);
+    return data;
+  };
+
+  const fetchedData = JSON.parse(readFile());
+
+  //console.log(fetchedData);
+  fetchedData.forEach((element) => {
+    Meteor.call("insertAdvise", element);
+  });
 const path = "/home/osama/Desktop/Meteors/Life/imports/api/all2.json";
 const encode = "utf-8";
 
@@ -117,7 +131,7 @@ const readFile = () => {
   return data;
 };
 
-const fetchedData = JSON.parse(readFile())
+
 
 const toAdvise = (arr) => {
   let advises = []

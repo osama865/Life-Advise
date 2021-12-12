@@ -89,21 +89,22 @@ export default function FetchOneAdvise() {
 
   return (
     <>
-      hello
-      <div>
-        {end === true ? (
-          <h1>we dont have another advises</h1>
-        ) : (
-          <div>
-            {advise?.map((ad, i) => (
-              <Advise advise={ad} id={ad._id} key={i} />
-            ))}
-            {skip !== undefined && (
-              <button onClick={fetchAdvise}>fetch advise</button>
-            )}
-          </div>
-        )}
-      </div>
+      {end === true ? (
+        <h1>we dont have another advises</h1>
+      ) : (
+        <>
+          {advise?.map((ad, i) => (
+            <Advise advise={ad} id={ad._id} key={i} />
+          ))}
+          {skip !== undefined && (
+            <div class="center">
+              <button class="btn favorite">
+                <i class="fas fa-comment-alt"></i> Get More Advices
+              </button>
+            </div>
+          )}
+        </>
+      )}
     </>
   );
 }
