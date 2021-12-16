@@ -11,6 +11,7 @@ export const App = () => {
       <Routes>
         <Route exact path="/saved" element={<FetchSavedAdvises />} />
         <Route exact path="/random" element={<FetchOneAdvise />} />
+        <Route exact path="/" element={<FetchOneAdvise />} />
         <Route exact path="/all" element={<FetchAllAdvises />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

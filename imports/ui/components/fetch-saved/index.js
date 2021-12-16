@@ -13,11 +13,20 @@ export default function FetchSavedAdvises() {
     setAdvises(advs);
   }, []);
 
+  function coloring() {
+    let colorNumber;
+    colorNumber = Math.floor(Math.abs(Math.random() * 10 - 4));
+    if (colorNumber > 4 || colorNumber <= 0) {
+      colorNumber = 3;
+    }
+    return colorNumber;
+  }
+
   return (
     <>
       here is favorite advises
       {advises?.map((advise, i) => {
-        return <SavedAdvises advise={advise} _id={advise._id} key={i} />;
+        return <SavedAdvises advise={advise} _id={advise._id} key={i} color={coloring()} />;
       })}
     </>
   );
