@@ -37,9 +37,9 @@ export default function SavedAdvises({ advise, _id, color }) {
               <i class="fas fa-backspace"></i> Clear Note.
             </button>
             <textarea
-              autocomplete="false"
+              autoComplete="false"
               dir=""
-              spellcheck="false"
+              spellCheck="false"
               cols="20"
               rows="5"
               ref={note}

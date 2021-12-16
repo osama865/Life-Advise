@@ -8,6 +8,7 @@ import Navbar from "./components/navbar";
 export const App = () => {
   return (
     <>
+      <Navbar />
       <Routes>
         <Route exact path="/saved" element={<FetchSavedAdvises />} />
         <Route exact path="/random" element={<FetchOneAdvise />} />
@@ -17,4 +18,4 @@ export const App = () => {
       </Routes>
     </>
   );
-}; 
+};
