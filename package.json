@@ -7,15 +7,24 @@
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer"
   },
+  "engines": {
+    "node": "16.13.1"
+  },
   "dependencies": {
     "@babel/runtime": "^7.15.3",
-    "@heroku/buildpack-registry": "1.0.1",
+    "@heroku-cli/plugin-buildpacks": "^7.54.0",
+    "@heroku/buildpack-registry": "^1.0.1",
+    "async-file": "^2.0.2",
     "bcrypt": "^5.0.1",
+    "cli-ux": "^6.0.6",
+    "got": "^12.0.0",
     "meteor-node-stubs": "^1.1.0",
     "minimongo": "^6.11.3",
+    "phoenix": "^1.6.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-indexed-db": "^1.0.12",
+    "react-router-dom": "^6.1.1",
     "rxjs": "^7.4.0",
     "zangodb": "^1.0.8"
   },

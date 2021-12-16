@@ -8,15 +8,11 @@ let savedIds = [];
 (async () => {
   savedIds = await ids.fetchAll();
 })();
-export default function Advise({ advise, id }) {
+export default function Advise({ advise, id, color }) {
   const [editedNote, setEditedNote] = useState("");
   const [isSaved, setIsSaved] = useState(false);
   const textfield = useRef();
 
-  let colorNumber = Math.floor(Math.abs(Math.random() * 10 - 4));
-  if (colorNumber > 4 || colorNumber <= 0) {
-    colorNumber = 3;
-  }
   const saveAdvise = () => {
     advise.note = editedNote;
     let _id = id;
@@ -33,38 +29,18 @@ export default function Advise({ advise, id }) {
     });
   };
 
+  const handleChange = (e) => {
+    e.preventDefault();
+    setEditedNote(e.target.value);
+  };
+
   useEffect(() => {
     findMatched();
   }, []);
 
-  /**
-   * <h2>{advise.text}</h2>
-      <h4>{advise.author}</h4>
-
-      <>
-        {isSaved === false ? (
-          <>
-            <div>
-              <textarea
-                ref={textfield}
-                placeholder="Save it with note?"
-                onChange={(e) => setEditedNote(e.target.value)}
-              />
-            </div>
-            <button onClick={saveAdvise}>Save</button>
-          </>
-        ) : (
-          <>
-            <button>Saved</button>
-          </>
-        )}
-      </>
-      <h1>---------------------------</h1>
-
-   */
   return (
     <div className="container">
-      <blockquote className={`blockquote color${colorNumber}`}>
+      <blockquote className={`blockquote color${color}`}>
         {advise.text}
         <span> ــ {advise.author}</span>
         {isSaved === false ? (
@@ -72,8 +48,13 @@ export default function Advise({ advise, id }) {
             <textarea
               dir={advise.language === "ar" ? "rtl" : "ltr"}
               ref={textfield}
-              placeholder="Save it with note?"
-              onChange={(e) => setEditedNote(e.target.value)}
+              value={editedNote}
+              placeholder={
+                advise.language === "ar"
+                  ? "احفظها واضف افكارك ?"
+                  : "Save it with note?"
+              }
+              onChange={handleChange}
               cols="20"
               rows="5"
             />
@@ -92,114 +73,3 @@ export default function Advise({ advise, id }) {
     </div>
   );
 }
-
-/**
- * 
- * advise with random fetched when its allready saved
-   
-    <div class="container">
-          <blockquote class="blockquote color3">
-            Creativity is just connecting things. When you ask creative people how
-            they did something, they feel a little guilty because they didn't really
-            do it, they just saw something. It seemed obvious to them after a while.
-            That's because they were able to connect experiences they've had and
-            synthesize new things.
-            <span>ــ Steve Jobs</span>
-            <div class="options">
-              <button class="btn">
-                <i class="fas fa-backspace"></i> Clear Note.
-              </button>
-              <textarea
-                placeholder="Save it with Note."
-                name=""
-                id=""
-                cols="20"
-                rows="5"
-              ></textarea>
-            </div>
-            <div class="center">
-              <button class="btn favorite">
-                <i class="far fa-heart"></i> favorite
-              </button>
-              <button class="btn favorite">
-                <i class="fa fa-heart"></i> favorite
-              </button>
-            </div>
-          </blockquote>
-        </div>
-
-
-    <div class="center">
-      <button class="btn favorite">
-        <i class="fas fa-comment-alt"></i> Get More Advices
-      </button>
-    </div>
-    <div class="container">
-      <blockquote class="blockquote color4">
-        Creativity is just connecting things. When you ask creative people how
-        they did something, they feel a little guilty because they didn't really
-        do it, they just saw something. It seemed obvious to them after a while.
-        That's because they were able to connect experiences they've had and
-        synthesize new things.
-        <span>ــ Steve Jobs</span>
-        <div class="options">
-          <button class="btn">
-            <i class="fas fa-backspace"></i> Clear Note.
-          </button>
-          <textarea
-            autocomplete="false"
-            dir=""
-            spellcheck="false"
-            name=""
-            id=""
-            cols="20"
-            rows="5"
-          >
-Your note...</textarea
-          >
-        </div>
-        <div class="center">
-          <button class="btn favorite">
-            <i class="far fa-edit"></i> Edit Note
-          </button>
-          <button class="btn favorite">
-            <i class="fa fa-trash"></i> Delete Advise
-          </button>
-        </div>
-      </blockquote>
-    </div>
-    <button class="btn"><i class="fa fa-trash"></i> Trash</button>
-      <button class="btn"><i class="far fa-heart"></i> favorite</button>
-      <button class="btn"><i class="fas fa-random"></i> random</button>
-
-    <div class="container">
-      <blockquote class="blockquote color3">
-        Creativity is just connecting things. When you ask creative people how
-        they did something, they feel a little guilty because they didn't really
-        do it, they just saw something. It seemed obvious to them after a while.
-        That's because they were able to connect experiences they've had and
-        synthesize new things.
-        <span>ــ Steve Jobs</span>
-        <div class="options">
-          <button class="btn">
-            <i class="fas fa-backspace"></i> Clear Note.
-          </button>
-          <textarea
-            placeholder="Save it with Note."
-            name=""
-            id=""
-            cols="20"
-            rows="5"
-          ></textarea>
-        </div>
-        <div class="center">
-          <button class="btn favorite">
-            <i class="far fa-heart"></i> favorite
-          </button>
-          <button class="btn favorite">
-            <i class="fa fa-random"></i> favorite
-          </button>
-        </div>
-      </blockquote>
-    </div>
- */

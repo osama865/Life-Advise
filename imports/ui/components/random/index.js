@@ -25,6 +25,15 @@ export default function FetchOneAdvise() {
     setIndexes(tempArr);
   };
 
+  function coloring() {
+    let colorNumber;
+    colorNumber = Math.floor(Math.abs(Math.random() * 10 - 4));
+    if (colorNumber > 4 || colorNumber <= 0) {
+      colorNumber = 3;
+    }
+    return colorNumber;
+  }
+
   function increment() {
     s = indexes[i];
     if (s === undefined) {
@@ -94,11 +103,11 @@ export default function FetchOneAdvise() {
       ) : (
         <>
           {advise?.map((ad, i) => (
-            <Advise advise={ad} id={ad._id} key={i} />
+            <Advise advise={ad} id={ad._id} key={i} color={coloring()} />
           ))}
           {skip !== undefined && (
             <div class="center">
-              <button class="btn favorite">
+              <button onClick={fetchAdvise} class="btn favorite">
                 <i class="fas fa-comment-alt"></i> Get More Advices
               </button>
             </div>
