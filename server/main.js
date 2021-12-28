@@ -103,6 +103,10 @@ Meteor.methods({
       return s.saved;
     }
   },
+  fetchByScroll: (skip) => {
+    console.log(skip);
+    return advisesCollection.find({}, { limit: 10, skip: skip }).fetch();
+  },
 });
 
 Meteor.startup(() => {});
