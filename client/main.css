@@ -16,6 +16,11 @@
 
 html {
   background-color: #001e3c;
+  overflow-y: scroll;
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 .qoute {
