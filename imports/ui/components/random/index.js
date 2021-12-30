@@ -106,9 +106,9 @@ export default function FetchOneAdvise() {
             <Advise advise={ad} id={ad._id} key={i} color={coloring()} />
           ))}
           {skip !== undefined && (
-            <div class="center">
-              <button onClick={fetchAdvise} class="btn favorite">
-                <i class="fas fa-comment-alt"></i> Get More Advices
+            <div className="center">
+              <button onClick={fetchAdvise} className="btn favorite">
+                <i className="fas fa-comment-alt"></i> Get More Advices
               </button>
             </div>
           )}
