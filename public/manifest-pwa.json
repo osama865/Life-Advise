@@ -1,0 +1,24 @@
+{
+  "short_name": "Advices",
+  "name": "Life-Advice",
+  "icons": [
+    
+    {
+      "src": "assets/three.webp",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "assets/two.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#001e3c",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#001e3c",
+  "orientation": "portrait",
+  "description": "Get some advices for better life"
+}
