@@ -33,7 +33,7 @@ export default function FetchAllAdvises() {
   }, [result]);
 
   return (
-    <>
+    <div className="container1">
       {advs?.map((ad, i) => {
         if (i + 1 === advs.length) {
           return (
@@ -56,6 +56,6 @@ export default function FetchAllAdvises() {
           return <Advise advise={ad} id={ad._id} key={i} color={coloring()} />;
         }
       })}
-    </>
+    </div>
   );
 }

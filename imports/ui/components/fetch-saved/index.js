@@ -23,11 +23,10 @@ export default function FetchSavedAdvises() {
   }
 
   return (
-    <>
-      here is favorite advises
+    <div className="container1" >
       {advises?.map((advise, i) => {
         return <SavedAdvises advise={advise} _id={advise._id} key={i} color={coloring()} />;
       })}
-    </>
+    </div>
   );
 }

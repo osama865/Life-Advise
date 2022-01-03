@@ -1,7 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Meteor } from "meteor/meteor";
 import { useIndexDB } from "../../../../database/client/indexDB";
-import { useTracker } from "meteor/react-meteor-data";
 
 const savedAdvisesDB = useIndexDB("advises");
 const ids = useIndexDB("ids");
@@ -29,12 +27,12 @@ export default function SavedAdvises({ advise, _id, color }) {
   return (
     <>
       <div hidden={isRemoved}>
-        <blockquote class={`blockquote color${color}`}>
+        <blockquote className={`blockquote color${color}`}>
           {advise.text}
           <span>ــ {advise.author}</span>
-          <div class="options">
-            <button class="btn" onClick={clearNote}>
-              <i class="fas fa-backspace"></i> Clear Note.
+          <div className="options">
+            <button className="btn" onClick={clearNote}>
+              <i className="fas fa-backspace"></i> Clear Note.
             </button>
             <textarea
               autoComplete="false"
@@ -47,12 +45,12 @@ export default function SavedAdvises({ advise, _id, color }) {
               onChange={(e) => setEditedNote(e.target.value)}
             />
           </div>
-          <div class="center">
-            <button onClick={updateNote} class="btn favorite">
-              <i class="far fa-edit"></i> Edit Note
+          <div className="center">
+            <button onClick={updateNote} className="btn favorite">
+              <i className="far fa-edit"></i> Edit Note
             </button>
-            <button onClick={remove} class="btn favorite">
-              <i class="fa fa-trash"></i> Delete Advise
+            <button onClick={remove} className="btn favorite">
+              <i className="fa fa-trash"></i> Delete Advise
             </button>
           </div>
         </blockquote>

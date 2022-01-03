@@ -26,7 +26,7 @@ html::-webkit-scrollbar {
 .qoute {
   font-size: 1.4em;
   width: 60%;
-  margin: 50px auto;
+  margin: 20px auto;
   font-style: italic;
   padding: 1.2em 30px 1.2em 75px;
   line-height: 1.6;
@@ -71,7 +71,7 @@ html::-webkit-scrollbar {
 .blockquote {
   font-size: 1.5em;
   width: 60%;
-  margin: 50px auto;
+  margin: 10px auto;
   font-style: italic;
   padding: 1.2em 30px 1.2em 75px;
   /* border-left: 8px solid #8578c0;
@@ -155,10 +155,29 @@ textarea {
 
 .center {
   display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  gap: 10px;
+  align-content: space-around;
   justify-content: center;
-  align-items: center;
-  row-gap: 0.3em;
 }
+
+
+.random {
+  min-height: 300px;
+  display: flex;
+  margin-top: 50px;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
 .favorite {
   align-self: center;
+}
+
+.container1 {
+  transition: all 200ms;
+  margin-top: 4em;
 }

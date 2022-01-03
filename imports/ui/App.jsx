@@ -15,12 +15,13 @@ export const App = () => {
   window.addEventListener("offline", () => {
     console.log("offline");
     setOnline(false);
+    window.location.href = "#no-internet";
   });
-
   return (
     <>
+      {online === false && <Offline />}
+      <Offline />
       <Navbar />
-
       <Routes>
         <Route exact path="/saved" element={<FetchSavedAdvises />} />
         <Route exact path="/random" element={<FetchOneAdvise />} />
@@ -28,8 +29,6 @@ export const App = () => {
         <Route exact path="/all" element={<FetchAllAdvises />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-
-      {online === false && <Offline />}
     </>
   );
 };

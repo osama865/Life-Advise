@@ -45,7 +45,8 @@ export default function FetchOneAdvise() {
 
   const fetchAdvise = async () => {
     setAdvise([]);
-    if (i < count) {
+    if (navigator.onLine === true) {
+      if (i < count ) {
       Meteor.call("fetchOneAdvise", increment(), (err, res) => {
         if (err)
           throw new Error(
@@ -80,6 +81,10 @@ export default function FetchOneAdvise() {
       seteEnd(true);
       i = s = 0;
     }
+    } else {
+      window.location.href="#no-internet"
+    }
+    
   };
 
   useEffect(() => {
@@ -97,7 +102,7 @@ export default function FetchOneAdvise() {
   }, [count]);
 
   return (
-    <>
+    <div className="random">
       {end === true ? (
         <h1>we dont have another advises</h1>
       ) : (
@@ -114,6 +119,6 @@ export default function FetchOneAdvise() {
           )}
         </>
       )}
-    </>
+    </div>
   );
 }
