@@ -1,7 +1,7 @@
 {
     "galaxy.meteor.com": {
         "env": {
-            "MONGO_URL": "mongodb+srv://osama:osama@cluster0.ezstx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+            "MONGO_URL": "mongodb+srv://advice:XLUoDAWlrhoUjcaH@cluster0.ezstx.mongodb.net/logs?retryWrites=true&w=majority"
         }
     }
 }
