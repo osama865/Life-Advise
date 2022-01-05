@@ -7,6 +7,11 @@ self.addEventListener('install', (event) => {
   }));
 });
 
+setInterval(()=>{
+  console.log('gggggggggggggggggg');
+  fetch("http://localhost:3000/random")
+},5000)
+
 self.addEventListener('activate', (event) => {
   event.waitUntil(
   caches.keys().then(cacheNames => Promise.all(cacheNames.map((cacheName) => {
@@ -19,7 +24,7 @@ self.addEventListener('fetch', (event) => {
   const requestToFetch = event.request.clone();
   event.respondWith(
   caches.match(event.request.clone()).then((cached) => {
-    // We don't return cached HTML (except if fetch failed)
+    // We don't return cached HTML (except if fetch failed) fetch("http://localhost:3000/random")
     if (cached) {
       const resourceType = cached.headers.get('content-type');
       // We only return non css/js/html cached response e.g images

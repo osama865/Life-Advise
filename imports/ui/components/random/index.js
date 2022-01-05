@@ -1,10 +1,38 @@
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Meteor } from "meteor/meteor";
 import Advise from "../Advise";
+import notifyUser  from "../notification/index";
 
 let s = 0;
 let i = 0;
+function coloring() {
+  let colorNumber;
+  colorNumber = Math.floor(Math.abs(Math.random() * 10 - 4));
+  if (colorNumber > 4 || colorNumber <= 0) {
+    colorNumber = 3;
+  }
+  return colorNumber;
+}
 
+function increment(indexes) {
+  s = indexes[i];
+  if (s === undefined) {
+    return;
+  }
+  i++;
+  return s;
+}
+const shuffle = (max, setIndexes) => {
+  // order
+  let arr = [];
+  for (let i = 0; i < max; i++) {
+    arr[i] = i;
+  }
+  let tempArr = arr.reverse();
+  // shuffle
+  tempArr.sort((a, b) => 0.5 - Math.random());
+  setIndexes(tempArr);
+};
 // fix this shit later
 export default function FetchOneAdvise() {
   const [count, setCount] = useState(0);
@@ -13,41 +41,10 @@ export default function FetchOneAdvise() {
   const [indexes, setIndexes] = useState([]);
   const [end, seteEnd] = useState(false);
 
-  const shuffle = (max) => {
-    // order
-    let arr = [];
-    for (let i = 0; i < max; i++) {
-      arr[i] = i;
-    }
-    let tempArr = arr.reverse();
-    // shuffle
-    tempArr.sort((a, b) => 0.5 - Math.random());
-    setIndexes(tempArr);
-  };
-
-  function coloring() {
-    let colorNumber;
-    colorNumber = Math.floor(Math.abs(Math.random() * 10 - 4));
-    if (colorNumber > 4 || colorNumber <= 0) {
-      colorNumber = 3;
-    }
-    return colorNumber;
-  }
-
-  function increment() {
-    s = indexes[i];
-    if (s === undefined) {
-      return;
-    }
-    i++;
-    return s;
-  }
-
   const fetchAdvise = async () => {
     setAdvise([]);
-    if (navigator.onLine === true) {
-      if (i < count ) {
-      Meteor.call("fetchOneAdvise", increment(), (err, res) => {
+    if (i < count) {
+      Meteor.call("fetchOneAdvise", increment(indexes), (err, res) => {
         if (err)
           throw new Error(
             "occured when fetching advise , check the skip arg",
@@ -60,9 +57,10 @@ export default function FetchOneAdvise() {
           setAdvise((prev) => {
             return [...new Set([...prev, res])];
           });
+          notifyUser(res);
         }
       });
-      Meteor.call("fetchOneAdvise", increment(), (err, res) => {
+      Meteor.call("fetchOneAdvise", increment(indexes), (err, res) => {
         if (err)
           throw new Error(
             "occured when fetching advise , check the skip arg",
@@ -75,16 +73,13 @@ export default function FetchOneAdvise() {
           setAdvise((prev) => {
             return [...new Set([...prev, res])];
           });
+          notifyUser(res);
         }
       });
     } else {
       seteEnd(true);
       i = s = 0;
     }
-    } else {
-      window.location.href="#no-internet"
-    }
-    
   };
 
   useEffect(() => {
@@ -98,7 +93,7 @@ export default function FetchOneAdvise() {
   }, [indexes]);
 
   useEffect(() => {
-    shuffle(count);
+    shuffle(count, setIndexes);
   }, [count]);
 
   return (

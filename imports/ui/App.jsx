@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import FetchSavedAdvises from "./components/fetch-saved";
 import FetchOneAdvise from "./components/random";
