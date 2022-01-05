@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import FetchSavedAdvises from "./components/fetch-saved";
 import FetchOneAdvise from "./components/random";
@@ -6,6 +6,7 @@ import NotFound from "./components/404";
 import FetchAllAdvises from "./components/all";
 import Navbar from "./components/navbar";
 import Offline from "./components/offline";
+import { Notify } from "./components/notification";
 export const App = () => {
   const [online, setOnline] = useState(navigator.onLine);
   window.addEventListener("online", () => {
@@ -24,6 +25,7 @@ export const App = () => {
       <Navbar />
       <Routes>
         <Route exact path="/saved" element={<FetchSavedAdvises />} />
+        <Route exact path="/notify" element={<Notify />} />
         <Route exact path="/random" element={<FetchOneAdvise />} />
         <Route exact path="/" element={<FetchOneAdvise />} />
         <Route exact path="/all" element={<FetchAllAdvises />} />

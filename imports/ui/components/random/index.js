@@ -1,7 +1,7 @@
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Meteor } from "meteor/meteor";
 import Advise from "../Advise";
-import notifyUser  from "../notification/index";
+import notifyUser from "../notification/index";
 
 let s = 0;
 let i = 0;
@@ -90,6 +90,9 @@ export default function FetchOneAdvise() {
       fetchAdvise();
     }
     seteEnd(false);
+    return ()=>{
+      setAdvise([])
+    }
   }, [indexes]);
 
   useEffect(() => {

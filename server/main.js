@@ -4,7 +4,6 @@ import advisesCollection, {
   savedAdvisesCollection,
 } from "../database/collections/advisesCollection";
 import "./publications/index";
-const fs = require("fs");
 
 Meteor.methods({
   // insert an advise

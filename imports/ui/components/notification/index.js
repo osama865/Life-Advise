@@ -1,12 +1,63 @@
+import Advise from "../Advise";
+import React from "react";
+
 let permission = Notification.requestPermission();
-const notifyUser = (advise)=>{
-    const option = {
-        body : advise.text,
-        dir : advise.language === "en"? "ltr" : "rtl",
-        lang : advise.language
-    }
-  const greeting = new Notification('Your Advices for today' , option)
-  
+const notifyUser = (advise) => {
+  const actions = [
+    
+  ]
+  const option = {
+    body: advise.text,
+    dir: advise.language === "en" ? "ltr" : "rtl",
+    lang: advise.language || "en",
+    vibrate: [200, 100, 200],
+    requireInteraction: true,
+    actions ,
+  };
+  const notification = new Notification("Your Advices for today", option);
+  notification.addEventListener("click", function () {
+    window.open("http://localhost:3000/notify", "_blank");
+  });
+};
+
+export function Notify(advise) {
+  return (
+    <>
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+      helloooooooooooooooooooooooooooooooooooooooooooooooooo
+    </>
+  );
 }
 
 export default notifyUser;
