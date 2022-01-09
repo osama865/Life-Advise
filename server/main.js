@@ -1,9 +1,12 @@
 import { Meteor } from "meteor/meteor";
 import { check } from "meteor/check";
+import { WebApp } from "meteor/webapp";
+
 import advisesCollection, {
   savedAdvisesCollection,
 } from "../database/collections/advisesCollection";
 import "./publications/index";
+//import { randNumb } from "../imports/ui/components/random";
 const fs = require("fs");
 
 Meteor.methods({
@@ -107,6 +110,29 @@ Meteor.methods({
     console.log(skip);
     return advisesCollection.find({}, { limit: 10, skip: skip }).fetch();
   },
+});
+
+function rand() {
+  let max = 0,
+    min = 0;
+  max = Meteor.call("countAdvises");
+  let randNumb = Math.floor(Math.random() * (max - min + 1)) + min;
+  console.log(randNumb, "lllllllll");
+  return randNumb;
+}
+
+
+const getAdvice = () => {
+  const advice = Meteor.call("fetchOneAdvise", rand());
+  return advice;
+};
+
+
+// Listen to incoming HTTP requests (can only be used on the server).
+WebApp.connectHandlers.use("/random-fetch", (req, res, next) => {
+  res.writeHead(200);
+  let data = JSON.stringify(getAdvice())
+  res.end(data);
 });
 
 Meteor.startup(() => {});

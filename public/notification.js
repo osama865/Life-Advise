@@ -4,6 +4,8 @@ function subscribe() {
     return;
   }
 
+  console.log("dfllllll");
+
   if (Notification.permission === "denied") {
     console.log("The user has blocked notifications.");
     return;
@@ -33,3 +35,4 @@ function subscribe() {
       });
   });
 }
+subscribe();

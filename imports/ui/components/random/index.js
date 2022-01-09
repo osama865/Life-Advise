@@ -5,6 +5,7 @@ import notifyUser  from "../notification/index";
 
 let s = 0;
 let i = 0;
+export let randNumb ;
 function coloring() {
   let colorNumber;
   colorNumber = Math.floor(Math.abs(Math.random() * 10 - 4));
@@ -14,7 +15,7 @@ function coloring() {
   return colorNumber;
 }
 
-function increment(indexes) {
+export function increment(indexes) {
   s = indexes[i];
   if (s === undefined) {
     return;
@@ -32,7 +33,13 @@ const shuffle = (max, setIndexes) => {
   // shuffle
   tempArr.sort((a, b) => 0.5 - Math.random());
   setIndexes(tempArr);
+  randNumb = tempArr[Math.random().toFixed()]
+  console.log('randooooooom' , randNumb);
 };
+
+const rand = () => {
+  console.log();
+}
 // fix this shit later
 export default function FetchOneAdvise() {
   const [count, setCount] = useState(0);

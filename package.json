@@ -29,6 +29,7 @@
     "react-indexed-db": "^1.0.12",
     "react-router-dom": "^6.1.1",
     "rxjs": "^7.4.0",
+    "web-push": "^3.4.5",
     "zangodb": "^1.0.8"
   },
   "meteor": {
