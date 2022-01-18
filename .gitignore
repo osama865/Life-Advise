@@ -2,3 +2,5 @@ node_modules
 .vscode
 
 /lib
+imports/api/test3.json
+imports/api

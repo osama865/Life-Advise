@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Meteor } from "meteor/meteor";
 Meteor.call("fetchOneAdvise", 10, (err, res) => {
   console.log(res);
@@ -14,6 +15,47 @@ self.addEventListener("install", (event) => {
 });
 
 self.addEventListener("activate", (event) => {
+=======
+const HTMLToCache = "/";
+const version = "MSW V0.3";
+
+self.addEventListener("push", (event) => {
+  console.log(event, "event");
+
+  const payload = event.data.json();
+  const options = {
+    body: `${payload.data.text}    - ${payload.data.author}`,
+    badge: "public/assets/three.webp",
+    dir: payload.data.language === "en" ? "ltr" : "rtl",
+    lang: payload.data.language,
+    requireInteraction: true,
+    tag: payload.data.id,
+    actions: [{ action: "dismiss", title: "dismiss" }],
+  };
+  event.currentTarget.registration.showNotification(payload.title, options);
+});
+
+self.addEventListener(
+  "notificationclick",
+  function (event) {
+    if (event.action === "dismiss") {
+      event.notification.close();
+    }
+  },
+  false
+);
+
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open(version).then((cache) => {
+      cache.add(HTMLToCache).then(self.skipWaiting());
+    })
+  );
+});
+let registration;
+self.addEventListener("activate", async function (event) {
+  registration = await event.currentTarget.registration;
+>>>>>>> notifications
   event.waitUntil(
     caches
       .keys()

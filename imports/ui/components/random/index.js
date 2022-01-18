@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Meteor } from "meteor/meteor";
 import Advise from "../Advise";
+<<<<<<< HEAD
 import notifyUser from "../notification/index";
+=======
+>>>>>>> notifications
 
 let s = 0;
 let i = 0;
+export let randNumb;
 function coloring() {
   let colorNumber;
   colorNumber = Math.floor(Math.abs(Math.random() * 10 - 4));
@@ -14,7 +18,7 @@ function coloring() {
   return colorNumber;
 }
 
-function increment(indexes) {
+export function increment(indexes) {
   s = indexes[i];
   if (s === undefined) {
     return;
@@ -30,9 +34,11 @@ const shuffle = (max, setIndexes) => {
   }
   let tempArr = arr.reverse();
   // shuffle
-  tempArr.sort((a, b) => 0.5 - Math.random());
+  tempArr.sort(() => 0.5 - Math.random());
   setIndexes(tempArr);
+  randNumb = tempArr[Math.random().toFixed()];
 };
+
 // fix this shit later
 export default function FetchOneAdvise() {
   const [count, setCount] = useState(0);
@@ -57,7 +63,6 @@ export default function FetchOneAdvise() {
           setAdvise((prev) => {
             return [...new Set([...prev, res])];
           });
-          notifyUser(res);
         }
       });
       Meteor.call("fetchOneAdvise", increment(indexes), (err, res) => {
@@ -73,7 +78,6 @@ export default function FetchOneAdvise() {
           setAdvise((prev) => {
             return [...new Set([...prev, res])];
           });
-          notifyUser(res);
         }
       });
     } else {

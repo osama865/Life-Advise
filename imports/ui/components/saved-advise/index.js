@@ -36,7 +36,7 @@ export default function SavedAdvises({ advise, _id, color }) {
             </button>
             <textarea
               autoComplete="false"
-              dir=""
+              dir={advise.language === "en" ? "ltr" : "rtl"}
               spellCheck="false"
               cols="20"
               rows="5"
@@ -58,22 +58,3 @@ export default function SavedAdvises({ advise, _id, color }) {
     </>
   );
 }
-
-/**
- * 
-     <div hidden={isRemoved}>
-        <h2>{advise.text}</h2>
-        <h4>{advise.author}</h4>
-        <button onClick={clearNote}>clear note</button>
-        <textarea
-          ref={note}
-          defaultValue={advise.note}
-          onChange={(e) => setEditedNote(e.target.value)}
-        />
-        <button onClick={updateNote}>Edit</button>
-        <div></div>
-        <button onClick={remove}>Remove Advise</button>
-        <h1>---------------------------</h1>
-      </div>
-
- */

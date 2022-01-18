@@ -23,3 +23,5 @@ dev-error-overlay
 accounts-password
 meteortesting:mocha
 force-ssl
+webapp
+meteorhacks:picker

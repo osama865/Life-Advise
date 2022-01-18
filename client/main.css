@@ -181,3 +181,15 @@ textarea {
   transition: all 200ms;
   margin-top: 4em;
 }
+
+.not-found {
+  margin-top: 18em;
+}
+
+.not-found h1 {
+  color: #bebbce;
+}
+a {
+  text-decoration: none;
+  color: #674ae9;
+}
