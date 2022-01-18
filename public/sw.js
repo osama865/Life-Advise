@@ -1,6 +1,32 @@
 const HTMLToCache = "/";
 const version = "MSW V0.3";
 
+self.addEventListener("push", (event) => {
+  console.log(event, "event");
+
+  const payload = event.data.json();
+  const options = {
+    body: `${payload.data.text}    - ${payload.data.author}`,
+    badge: "public/assets/three.webp",
+    dir: payload.data.language === "en" ? "ltr" : "rtl",
+    lang: payload.data.language,
+    requireInteraction: true,
+    tag: payload.data.id,
+    actions: [{ action: "dismiss", title: "dismiss" }],
+  };
+  event.currentTarget.registration.showNotification(payload.title, options);
+});
+
+self.addEventListener(
+  "notificationclick",
+  function (event) {
+    if (event.action === "dismiss") {
+      event.notification.close();
+    }
+  },
+  false
+);
+
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(version).then((cache) => {
@@ -11,10 +37,6 @@ self.addEventListener("install", (event) => {
 let registration;
 self.addEventListener("activate", async function (event) {
   registration = await event.currentTarget.registration;
-  console.log(event);
-  //setInterval(() => {
-  //  notifyUser(event.currentTarget.registration);
-  //}, 5000);
   event.waitUntil(
     caches
       .keys()
@@ -122,24 +144,5 @@ function hasSameHash(firstUrl, secondUrl) {
   }
 }
 
-const getRandomAdvice = async () => {
-  let advice = await fetch("http://localhost:3000/random-fetch").catch(
-    (err) => {
-      console.error(err);
-    }
-  );
-  return advice.json();
-};
-
-const notifyUser = async (reg) => {
-  const obj = await getRandomAdvice();
-  const option = {
-    body: obj.text,
-    dir: obj.language === "en" ? "ltr" : "rtl",
-    lang: obj.language,
-  };
-  console.log("dddddddddddddddddddddddd");
-  //reg.showNotification("title", option);
-};
 // Service worker created by Ilan Schemoul alias NitroBAY as a specific Service Worker for Meteor
 // Please see https://github.com/NitroBAY/meteor-service-worker for the official project source

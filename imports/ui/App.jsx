@@ -17,6 +17,7 @@ export const App = () => {
     setOnline(false);
     window.location.href = "#no-internet";
   });
+  
   return (
     <>
       {online === false && <Offline />}

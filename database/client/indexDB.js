@@ -21,13 +21,10 @@ const useIndexDB = (collectionName) => {
 
   // to insert doc or multiple docs to specific collection
   const insert = (docs) => {
-    console.log(docs, "docs");
     collection
       .insert(docs)
       .then((result) => {})
-      .catch((err) => {
-        console.error(err, "dupplicated docs");
-      });
+      .catch((err) => {});
   };
 
   // update specific (whole object or certain field)
@@ -35,12 +32,8 @@ const useIndexDB = (collectionName) => {
   const update = (selector, newValu) => {
     collection
       .update(selector, newValu)
-      .then((result) => {
-        console.log("result update");
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      .then((result) => {})
+      .catch((err) => {});
   };
 
   // to remove specific doc from collection
@@ -48,9 +41,7 @@ const useIndexDB = (collectionName) => {
     collection
       .remove(selector)
       .then((result) => {})
-      .catch((err) => {
-        console.error(err);
-      });
+      .catch((err) => {});
   };
   return collection, { insert, fetchAll, fetchOne, remove, update };
 };
@@ -68,12 +59,10 @@ export default function useIndexDB(collectionName) {
   // APIs
   // to fetch one doc selector could be _id or any property
   const fetchOne = (selector) => {
-    collection.findOne(selector).then((res) => console.log(res));
   };
 
   // to fetch all docs in specific collection
   const fetchAll = () => {
-    return collection.find({}).forEach((doc) => console.log(doc));
   };
 
   // to insert doc or multiple docs to specific collection
@@ -81,10 +70,8 @@ export default function useIndexDB(collectionName) {
     collection
       .insert(docs)
       .then((result) => {
-        console.log(result);
       })
       .catch((err) => {
-        console.error(err);
       });
   };
 
@@ -94,10 +81,8 @@ export default function useIndexDB(collectionName) {
     collection
       .update(selector, newValu)
       .then((result) => {
-        console.log(result);
       })
       .catch((err) => {
-        console.error(err);
       });
   };
 
@@ -106,10 +91,8 @@ export default function useIndexDB(collectionName) {
     collection
       .remove(selector)
       .then((result) => {
-        console.log(result);
       })
       .catch((err) => {
-        console.error(err);
       });
   };
   return { insert, fetchAll, fetchOne, remove, update, collection };
