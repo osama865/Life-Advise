@@ -49,4 +49,12 @@ Meteor.methods({
     console.log(skip);
     return advisesCollection.find({}, { limit: 10, skip: skip }).fetch();
   },
+  setVAPIDKEYS: (KEYS , id) => {
+    KEYS._id = id
+    console.log(KEYS , "methods");
+    return advisesCollection.insert(KEYS);
+  },
+  getVAPIDKEYS: (id) => {
+    return advisesCollection.findOne({_id : id});
+  },
 });

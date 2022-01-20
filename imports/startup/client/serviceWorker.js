@@ -1,50 +1,42 @@
 import { Meteor } from "meteor/meteor";
 
-<<<<<<< HEAD
-Meteor.startup(() => {
-  navigator.serviceWorker
-    .register("/sw.js")
-    .then((worker) => {
-      worker.showNotification('A new message!', {
-        actions: [
-          {
-            action: 'show',
-            title: 'Show it',
-            icon: '/check.png'
-          },
-          {
-            action: 'ignore',
-            title: 'Ignore it',
-            icon: '/delete.png'
-          }
-        ]
-      });
-      console.info("service worker registered")})
-    .catch((error) => {
-=======
-const publicVapidKey =
-  "BJx9vRbDTiN1prIBCyMp0HfGSxQGLxdv2BisVam6tSdwGN_pt4gUarAQDYlHYNbtw_csFaZLkl20IlqXgkpe2Rc";
-
-function urlBase64ToUint8Array(base64String) {
-  var padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-  var base64 = (base64String + padding).replace(/\-/g, "+").replace(/_/g, "/");
-
-  var rawData = window.atob(base64);
-  var outputArray = new Uint8Array(rawData.length);
-
-  for (var i = 0; i < rawData.length; ++i) {
-    outputArray[i] = rawData.charCodeAt(i);
-  }
-  return outputArray;
-}
 Meteor.startup(async () => {
-  if (window.Notification) {
-    Notification.requestPermission(() => {
-      if (Notification.permission === "granted") {
-        getSubscriptionObject().then(subscribe);
-      }
-    });
+  navigator.serviceWorker.register("/sw.js");
+
+  let publicVapidKey;
+
+  let s = await Meteor.call("getVAPIDKEYS", "1");
+  Meteor.call("getVAPIDKEYS", "1", (err, res) => {
+    if (err) {
+      console.error(err);
+    }
+    publicVapidKey = res.publicKey;
+    console.log(publicVapidKey, "kkkkkkkkk");
+    if (window.Notification) {
+      Notification.requestPermission(() => {
+        if (Notification.permission === "granted") {
+          getSubscriptionObject().then(subscribe);
+        }
+      });
+    }
+  });
+
+  console.log(publicVapidKey, "shshshshsh");
+  function urlBase64ToUint8Array(base64String) {
+    var padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+    var base64 = (base64String + padding)
+      .replace(/\-/g, "+")
+      .replace(/_/g, "/");
+
+    var rawData = window.atob(base64);
+    var outputArray = new Uint8Array(rawData.length);
+
+    for (var i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
   }
+
   async function getSubscriptionObject() {
     try {
       const registration = await navigator.serviceWorker.register("/sw.js");
@@ -53,12 +45,12 @@ Meteor.startup(async () => {
         applicationServerKey: urlBase64ToUint8Array(publicVapidKey),
       });
     } catch (error) {
->>>>>>> notifications
       console.log("ServiceWorker registration failed: ", error);
     }
   }
 
-  function subscribe(subscription) {
+  async function subscribe(subscription) {
+    console.log("");
     console.log(subscription, "subscription");
     const obj = {
       method: "POST",
@@ -67,10 +59,12 @@ Meteor.startup(async () => {
         "content-type": "application/json",
       },
     };
-    console.log('kkkk', JSON.stringify(obj));
-    return fetch(`http://localhost:3000/subscribe`,obj).catch((err) => {
+    console.log("kkkk", JSON.stringify(obj));
+    try {
+      return fetch(`http://localhost:3000/subscribe`, obj);
+    } catch (err) {
       console.error(err);
-    });
+    }
   }
 
   function isPushSupported() {
@@ -98,16 +92,3 @@ Meteor.startup(async () => {
   }
   isPushSupported();
 });
-
-<<<<<<< HEAD
-self.addEventListener('notificationclick', () => {
-  console.log('Clicked!');
-});
-
-=======
->>>>>>> notifications
-/**
- *
-
-
- */

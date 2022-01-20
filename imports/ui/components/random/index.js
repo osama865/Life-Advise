@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Meteor } from "meteor/meteor";
 import Advise from "../Advise";
-<<<<<<< HEAD
-import notifyUser from "../notification/index";
-=======
->>>>>>> notifications
 
 let s = 0;
 let i = 0;

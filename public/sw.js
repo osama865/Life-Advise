@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-import { Meteor } from "meteor/meteor";
-Meteor.call("fetchOneAdvise", 10, (err, res) => {
-  console.log(res);
-})
-const HTMLToCache = "/";
-const version = "MSW V0.3";
-
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(version).then((cache) => {
-      cache.add(HTMLToCache).then(self.skipWaiting());
-    })
-  );
-});
-
-self.addEventListener("activate", (event) => {
-=======
 const HTMLToCache = "/";
 const version = "MSW V0.3";
 
@@ -52,10 +34,8 @@ self.addEventListener("install", (event) => {
     })
   );
 });
-let registration;
+
 self.addEventListener("activate", async function (event) {
-  registration = await event.currentTarget.registration;
->>>>>>> notifications
   event.waitUntil(
     caches
       .keys()

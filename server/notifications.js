@@ -1,18 +1,12 @@
 import { Meteor } from "meteor/meteor";
 import { WebApp } from "meteor/webapp";
-const webpush = require("web-push");
 import { Picker } from "meteor/meteorhacks:picker";
 import bodyParser from "body-parser";
+import "./publications/index";
+const webpush = require("web-push");
 
-const publicVapidKey =
-  "BJx9vRbDTiN1prIBCyMp0HfGSxQGLxdv2BisVam6tSdwGN_pt4gUarAQDYlHYNbtw_csFaZLkl20IlqXgkpe2Rc";
-const privateVapidKey = "IZZoteSW4z67JQfFmYTQH5XeHPHmp-A92f5DYFMzsPM";
-
-webpush.setVapidDetails(
-  "mailto:osama0000ibrahim@gmail.com",
-  publicVapidKey,
-  privateVapidKey
-);
+let VAPIDKEYS;
+//let VAPIDKEYS = { publicKey: "", privateKey: "" };
 
 function rand() {
   let max = 0,
@@ -35,15 +29,43 @@ WebApp.connectHandlers.use("/random-fetch", (req, res, next) => {
   res.end(data);
 });
 
-Picker.middleware(bodyParser.urlencoded({ extended: false }));
-Picker.middleware(bodyParser.json());
-Picker.route("/subscribe", function (params, req, res, next) {
-  const data = getAdvice();
-  let i = 0;
-  const payload = JSON.stringify({
-    title: `Hey, Your Advices for today!`,
-    data,
+Meteor.startup(() => {
+  VAPIDKEYS = webpush.generateVAPIDKeys();
+  console.log("vpids", VAPIDKEYS);
+  const publicVapidKey = VAPIDKEYS.publicKey;
+  const privateVapidKey = VAPIDKEYS.privateKey;
+  console.log("call get method", VAPIDKEYS);
+
+  Meteor.call("setVAPIDKEYS", VAPIDKEYS, "1", (err, res) => {
+    if (err) {
+      console.error(err);
+    }
+    console.log(res, "sssssssssssssssss");
   });
-  setInterval(() => {}, 10000);
-  webpush.sendNotification(req.body, payload);
+
+  Meteor.call("getVAPIDKEYS", "1", (err, res) => {
+    if (err) {
+      console.error(err);
+    }
+    webpush.setVapidDetails(
+      "mailto:osama0000ibrahim@gmail.com",
+      res.publicKey,
+      res.privateKey
+    );
+    console.log(res, "ggggggggggggggggg");
+  });
+
+  Picker.middleware(bodyParser.urlencoded({ extended: false }));
+  Picker.middleware(bodyParser.json());
+  Picker.route("/subscribe", function (params, req, res, next) {
+    const data = getAdvice();
+    console.log(params ,'params ',req.body);
+    let i = 0;
+    const payload = JSON.stringify({
+      title: `Hey, Your Advices for today!`,
+      data,
+    });
+    setInterval(() => {}, 10000);
+    webpush.sendNotification(req.body, payload);
+  });
 });
