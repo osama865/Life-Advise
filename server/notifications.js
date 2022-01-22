@@ -32,13 +32,13 @@ Meteor.startup(() => {
 
   Meteor.call("setVAPIDKEYS", VAPIDKEYS, "1", (err, res) => {
     if (err) {
-      throw new Error(err)
+      throw new Error(err);
     }
   });
 
   Meteor.call("getVAPIDKEYS", "1", (err, res) => {
     if (err) {
-      throw new Error(err)
+      throw new Error(err);
     }
     webpush.setVapidDetails(
       "mailto:osama0000ibrahim@gmail.com",
@@ -51,13 +51,13 @@ Meteor.startup(() => {
   Picker.middleware(bodyParser.json());
   Picker.route("/subscribe", function (params, req, res, next) {
     const data = getAdvice();
-    console.log(params ,'params ',req.body);
     let i = 0;
     const payload = JSON.stringify({
       title: `Hey, Your Advices for today!`,
       data,
     });
-    setInterval(() => {}, 10000);
-    webpush.sendNotification(req.body, payload);
+    setInterval(() => {
+      webpush.sendNotification(req.body, payload);
+    }, 1000 * 60);
   });
 });
