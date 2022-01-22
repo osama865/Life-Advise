@@ -21,7 +21,6 @@ Meteor.startup(async () => {
     }
   });
 
-  console.log(publicVapidKey, "shshshshsh");
   function urlBase64ToUint8Array(base64String) {
     var padding = "=".repeat((4 - (base64String.length % 4)) % 4);
     var base64 = (base64String + padding)
@@ -50,7 +49,6 @@ Meteor.startup(async () => {
   }
 
   async function subscribe(subscription) {
-    console.log("");
     console.log(subscription, "subscription");
     const obj = {
       method: "POST",
@@ -59,7 +57,6 @@ Meteor.startup(async () => {
         "content-type": "application/json",
       },
     };
-    console.log("kkkk", JSON.stringify(obj));
     try {
       return fetch(`http://localhost:3000/subscribe`, obj);
     } catch (err) {

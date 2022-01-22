@@ -5,9 +5,6 @@ import bodyParser from "body-parser";
 import "./publications/index";
 const webpush = require("web-push");
 
-let VAPIDKEYS;
-//let VAPIDKEYS = { publicKey: "", privateKey: "" };
-
 function rand() {
   let max = 0,
     min = 0;
@@ -30,29 +27,24 @@ WebApp.connectHandlers.use("/random-fetch", (req, res, next) => {
 });
 
 Meteor.startup(() => {
-  VAPIDKEYS = webpush.generateVAPIDKeys();
-  console.log("vpids", VAPIDKEYS);
-  const publicVapidKey = VAPIDKEYS.publicKey;
-  const privateVapidKey = VAPIDKEYS.privateKey;
-  console.log("call get method", VAPIDKEYS);
+  // generate vapid keys and store'em in db with id "1"
+  let VAPIDKEYS = webpush.generateVAPIDKeys();
 
   Meteor.call("setVAPIDKEYS", VAPIDKEYS, "1", (err, res) => {
     if (err) {
-      console.error(err);
+      throw new Error(err)
     }
-    console.log(res, "sssssssssssssssss");
   });
 
   Meteor.call("getVAPIDKEYS", "1", (err, res) => {
     if (err) {
-      console.error(err);
+      throw new Error(err)
     }
     webpush.setVapidDetails(
       "mailto:osama0000ibrahim@gmail.com",
       res.publicKey,
       res.privateKey
     );
-    console.log(res, "ggggggggggggggggg");
   });
 
   Picker.middleware(bodyParser.urlencoded({ extended: false }));

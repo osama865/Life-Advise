@@ -37,24 +37,20 @@ Meteor.methods({
   },
   // return en Advise
   fetchEnglishAdvises: () => {
-    console.log("hey");
     return advisesCollection.find({ language: "en" }).fetch();
   },
   // return ar Advise
   fetchArabicAdvises: () => {
-    console.log("hey");
     return advisesCollection.find({ language: "ar" }).fetch();
   },
   fetchByScroll: (skip) => {
-    console.log(skip);
     return advisesCollection.find({}, { limit: 10, skip: skip }).fetch();
   },
-  setVAPIDKEYS: (KEYS , id) => {
-    KEYS._id = id
-    console.log(KEYS , "methods");
+  setVAPIDKEYS: (KEYS, id) => {
+    KEYS._id = id;
     return advisesCollection.insert(KEYS);
   },
   getVAPIDKEYS: (id) => {
-    return advisesCollection.findOne({_id : id});
+    return advisesCollection.findOne({ _id: id });
   },
 });
