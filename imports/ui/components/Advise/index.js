@@ -3,11 +3,7 @@ import { useIndexDB } from "../../../../database/client/indexDB";
 
 const advises = useIndexDB("advises");
 const ids = useIndexDB("ids");
-let savedIds = [];
 
-(async () => {
-  savedIds = await ids.fetchAll();
-})();
 export default function Advise({ advise, id, color }) {
   const [editedNote, setEditedNote] = useState("");
   const [isSaved, setIsSaved] = useState(false);
@@ -17,16 +13,19 @@ export default function Advise({ advise, id, color }) {
     advise.note = editedNote;
     let _id = id;
     advises.insert(advise);
-    ids.insert({ _id });
     setIsSaved(true);
   };
 
   const findMatched = () => {
-    savedIds?.map((val) => {
-      if (val._id === id) {
-        setIsSaved(true);
-      }
-    });
+    advises.find().then((res) => {
+      console.log('res promise', res);
+      res?.map((val) => {
+        if (val._id === id) {
+          setIsSaved(true);
+        }
+      });
+    })
+
   };
 
   const handleChange = (e) => {

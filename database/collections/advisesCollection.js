@@ -1,3 +1,12 @@
 import { Mongo } from "meteor/mongo";
-
-export default advisesCollection = new Mongo.Collection("advices") || new Mongo.Collection("Advices");
+const local = 'Advises'
+const remote = 'advices'
+let collection = '';
+if (process.env.NODE_ENV === "development") {
+    collection = "Advises"
+} else {
+    collection = "advices"
+}
+export default advisesCollection = new Mongo.Collection(collection);
+// advices for mogno atlas
+// Advises for local mongo

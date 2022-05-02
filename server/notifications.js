@@ -58,6 +58,6 @@ Meteor.startup(() => {
     });
     setInterval(() => {
       webpush.sendNotification(req.body, payload);
-    }, 1000 * 60);
+    }, 1000 * 60 * 10);
   });
 });

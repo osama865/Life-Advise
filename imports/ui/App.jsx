@@ -7,6 +7,11 @@ import FetchAllAdvises from "./components/all";
 import Navbar from "./components/navbar";
 import Offline from "./components/offline";
 import { Notify } from "./components/notification";
+import advisesCollection from "../../database/collections/advisesCollection";
+
+
+
+console.log(advisesCollection.find().fetch(), "ssssssssssssllllllllll");
 export const App = () => {
   const [online, setOnline] = useState(navigator.onLine);
   window.addEventListener("online", () => {
@@ -18,7 +23,7 @@ export const App = () => {
     setOnline(false);
     window.location.href = "#no-internet";
   });
-  
+
   return (
     <>
       {online === false && <Offline />}

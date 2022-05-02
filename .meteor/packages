@@ -25,3 +25,4 @@ meteortesting:mocha
 force-ssl@1.1.0
 webapp@1.13.0
 meteorhacks:picker
+frozeman:persistent-minimongo2

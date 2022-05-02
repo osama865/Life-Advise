@@ -7,11 +7,12 @@ const savedAdvisesDB = useIndexDB("advises");
 export default function FetchSavedAdvises() {
   const [advises, setAdvises] = useState([]);
 
-  useEffect(async () => {
+  useEffect(() => {
     let advs = [];
-    advs = await savedAdvisesDB.fetchAll();
-    setAdvises(advs);
-  }, []);
+    savedAdvisesDB.find().then((res) => {
+      setAdvises(res)
+    })
+  },[]);
 
   function coloring() {
     let colorNumber;

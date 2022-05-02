@@ -10,7 +10,9 @@ export default function SavedAdvises({ advise, _id, color }) {
   const note = useRef();
 
   const updateNote = () => {
-    savedAdvisesDB.update({ _id }, { note: editedNote });
+    advise.note = editedNote
+    console.log(advise , 'for updating');
+    savedAdvisesDB.update(advise.id,advise);
   };
 
   const clearNote = (e) => {
@@ -19,7 +21,7 @@ export default function SavedAdvises({ advise, _id, color }) {
   };
 
   const remove = () => {
-    savedAdvisesDB.remove({ _id });
+    savedAdvisesDB.remove(advise.id);
     ids.remove({ _id });
     setIsRemoved(true);
   };
