@@ -1,4 +1,4 @@
-FROM node:14.17.5-alpine
+FROM heroku/nodejs
 LABEL maintainer="Osama"
 LABEL meteor.version="2.5.3"
 
