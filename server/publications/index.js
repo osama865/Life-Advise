@@ -1,7 +1,14 @@
 import { Meteor } from "meteor/meteor";
 import advisesCollection, { savedAdvisesCollection } from "../../database/collections/advisesCollection";
 
-Meteor.publish("advises", () => {
+let collection = '';
+if (process.env.NODE_ENV === "development") {
+    collection = "Advises"
+} else {
+    collection = "advices"
+}
+
+Meteor.publish(collection, () => {
   return advisesCollection.find();
 });
 Meteor.publish("savedAdvises", () => {
