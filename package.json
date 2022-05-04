@@ -16,7 +16,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.16",
     "@heroku-cli/plugin-buildpacks": "^7.54.0",
-    "@heroku/buildpack-registry": "^1.0.1",
+    "@heroku/buildpack-registry": "1.0.1",
     "async-file": "^2.0.2",
     "bcrypt": "^5.0.1",
     "body": "^5.1.0",
