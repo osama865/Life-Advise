@@ -4,3 +4,4 @@ node_modules
 /lib
 imports/api/test3.json
 imports/api
+/build
